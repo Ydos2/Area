@@ -9,8 +9,10 @@ import 'package:area/screens/Welcome/welcome_screen.dart';
 import 'package:area/constants.dart';
 import 'package:area/HomeRouterDelegate.dart';
 import 'package:area/HomeRouteInformationParser.dart';
+import 'package:area/locator.dart';
 
 void main() {
+  setupLocator();
   runApp(const MyApp());
 }
 
