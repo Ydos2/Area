@@ -4,7 +4,7 @@ import 'package:area/routing/route_names.dart';
 
 import 'package:area/screens/home/home_screen.dart';
 import 'package:area/screens/Welcome/welcome_screen.dart';
-import 'package:area/screens/Login/login_screen.dart';
+import 'package:area/screens/Login/home_view.dart';
 import 'package:area/screens/unkown/unkown_page.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
@@ -12,9 +12,9 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case HomeRoute:
       return _getPageRoute(HomeScreen(), settings);
     case LoginRoute:
-      return _getPageRoute(LoginScreen(), settings);
-    case WelcomeRoute:
-      return _getPageRoute(WelcomeScreen(), settings);
+      return _getPageRoute(HomeView(), settings);
+    // case WelcomeRoute:
+    //   return _getPageRoute(WelcomeScreen(), settings);
     default:
       return _getPageRoute(UnkownPage(), settings);
   }

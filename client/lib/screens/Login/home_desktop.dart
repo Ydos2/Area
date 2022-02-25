@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 
 class HomeDesktop extends StatelessWidget {
@@ -7,7 +9,7 @@ class HomeDesktop extends StatelessWidget {
       body: Container(
         child: Card(
           elevation: 5,
-          margin: EdgeInsets.symetric(horizontal: 130, vertical: 25),
+          margin: EdgeInsets.symmetric(horizontal: 130, vertical: 25),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(17)),
           child: Container(
             width: double.infinity,
@@ -18,10 +20,10 @@ class HomeDesktop extends StatelessWidget {
                 children: <Widget>[
                   Expanded(
                     child: Padding(
-                    padding: EdgeInsets.symetric(horizontal: 18.0),
+                    padding: EdgeInsets.symmetric(horizontal: 18.0),
                       child: Column(
-                        crossAxisAlignment: crossAxisAlignment.start,
-                        mainAxisALignment: mainAxisALignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Text(
                             "Sign In",
@@ -30,13 +32,13 @@ class HomeDesktop extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          SizeBox(height:50.0),
+                          SizedBox(height:50.0),
                           buildCustomTextField(
                             "Email address", "you@example.com", false),
-                          SizeBox(height: 25),
+                          SizedBox(height: 25),
                           buildCustomTextField(
                             "Password", "Insert your password", true),
-                          SizeBox(height:25),
+                          SizedBox(height:25),
                           Align(
                             alignment: Alignment.topRight,
                             child: FlatButton(
@@ -51,7 +53,7 @@ class HomeDesktop extends StatelessWidget {
                               ),
                             ),
                           ),
-                          SizeBox(height:30),
+                          SizedBox(height:30),
                           Container(
                             width: double.infinity,
                             height: 50,
@@ -71,7 +73,7 @@ class HomeDesktop extends StatelessWidget {
                                   topLeft: Radius.circular(25),
                                 )
                               ),
-                              color: Colors(0xFFF3630B),
+                              color: Color(0xFFF3630B),
                               child: Text(
                                 "Sign in",
                                 style: TextStyle(
@@ -82,14 +84,15 @@ class HomeDesktop extends StatelessWidget {
                               ),
                             ),
                           ),
-                          SizeBox(height: 23.0),
+                          SizedBox(height: 23.0),
                           Center(
                             child: RichText(
+                              // ignore: prefer_const_literals_to_create_immutables
                               text: TextSpan(children : [
                                 TextSpan(
                                   text: "Don't have an account?",
                                   style: TextStyle(
-                                    colors.black,
+                                    color: Colors.black,
                                     fontSize: 18,
                                   ),
                                 ),
@@ -107,15 +110,15 @@ class HomeDesktop extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizeBox(width: 25),
+                  SizedBox(width: 25),
                   Expanded(
                     flex: 2,
                     child: Center(
                       child: Material(
                         borderRadius: BorderRadius.circular(17.0),
                         child: Image.asset(
-                          "images/pluto.png",
-                          fit: BoxFit.cover,
+                          "assets/images/pluto.svg",
+                          fit: BoxFit.fill,
                           height: double.infinity,
                           width: double.infinity,
                         ),
@@ -143,10 +146,10 @@ class HomeDesktop extends StatelessWidget {
           obscureText: isPassword,
           cursorColor: Color(0xFFF36308),
           decoration: InputDecoration(
-            hintText: hintText,
+            hintText: hinText,
           )
         )
       ]
-    )
+    );
   }
 }

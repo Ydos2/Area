@@ -1,4 +1,4 @@
-import 'package:area/screens/Login/login_screen.dart';
+import 'package:area/screens/Login/home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:area/constants.dart';
 import 'package:flutter_svg/svg.dart';
@@ -41,7 +41,7 @@ class SideMenu extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const LoginScreen()),
+                              builder: (context) => HomeView()),
                         );
                       },
                       child: FittedBox(

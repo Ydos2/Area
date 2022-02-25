@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:area/screens/Login/login_screen.dart';
+// import 'package:area/screens/Login/login_screen.dart';
 import 'package:area/screens/Signup/components/background.dart';
 import 'package:area/screens/Signup/components/or_divider.dart';
 import 'package:area/screens/Signup/components/social_icon.dart';

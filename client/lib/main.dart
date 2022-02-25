@@ -12,8 +12,6 @@ import 'package:area/HomeRouterDelegate.dart';
 import 'package:area/HomeRouteInformationParser.dart';
 import 'package:area/locator.dart';
 
-import 'package:area/screens/Login/login_screen.dart';
-
 void main() {
   setupLocator();
   runApp(const MyApp());
@@ -42,7 +40,6 @@ class MyApp extends StatelessWidget {
               bodyText2: TextStyle(color: bodyTextColor),
             ),
       ),
-      home: HomeView(),
       //initialRoute: WelcomeScreen.route,
       //onGenerateRoute: RouteConfiguration.onGenerateRoute,
       //home: WelcomeScreen(),
@@ -71,13 +68,13 @@ class RouteConfiguration {
   /// take priority.
   static List<Path> paths = [
     Path(
-      r'^' + LoginScreen.route,
-      (context, match) => LoginScreen(),
+      r'^' + HomeView.route,
+      (context, match) => HomeView(),
     ),
-    Path(
-      r'^' + WelcomeScreen.route,
-      (context, match) => WelcomeScreen(),
-    ),
+    // Path(
+    //   r'^' + WelcomeScreen.route,
+    //   (context, match) => WelcomeScreen(),
+    // ),
     Path(
       r'^' + HomeScreen.route,
       (context, match) => HomeScreen(),

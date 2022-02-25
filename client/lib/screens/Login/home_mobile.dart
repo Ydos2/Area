@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
 
 class HomeMobile extends StatelessWidget {
@@ -7,7 +9,7 @@ class HomeMobile extends StatelessWidget {
       body: Center(
         child: Card(
           elevation: 5,
-          margin: EdgeInsets.symetric(
+          margin: EdgeInsets.symmetric(
             horizontal: 70.0,
             vertical: 50.0
           ),
@@ -16,10 +18,10 @@ class HomeMobile extends StatelessWidget {
           ),
           child: Container(
             width: double.infinity,
-            margin: EdgeInsets.symetric(horizontal:30),
+            margin: EdgeInsets.symmetric(horizontal:30),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisALignment: MainAxisALignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
                   "Sign in",
@@ -28,11 +30,11 @@ class HomeMobile extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizeBox(height: 50.0),
+                SizedBox(height: 50.0),
                 buildCustomTextField("Email address", "you@example.com", false),
-                SizeBox(height: 20,0),
+                SizedBox(height: 20.0),
                 buildCustomTextField("Password", "Insert your password", true),
-                SizeBox(height: 15.0),
+                SizedBox(height: 15.0),
                 Align(
                   alignment: Alignment.topRight,
                   child: FlatButton(
@@ -46,7 +48,7 @@ class HomeMobile extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizeBox(height:20.0),
+                SizedBox(height:20.0),
                 Container(
                   width: double.infinity,
                   height: 50.0,
@@ -69,14 +71,14 @@ class HomeMobile extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizeBox(height: 20.0),
+                SizedBox(height: 20.0),
                 Center(
                   child: RichText(
                     text: TextSpan(children : [
                       TextSpan(
                         text: "Don't have an account?",
                         style: TextStyle(
-                          colors.black,
+                          color: Colors.black,
                           fontSize: 17,
                         ),
                       ),
@@ -111,10 +113,10 @@ class HomeMobile extends StatelessWidget {
           obscureText: isPassword,
           cursorColor: Color(0xFFF36308),
           decoration: InputDecoration(
-            hintText: hintText,
+            hintText: hinText,
           )
         )
       ]
-    )
+    );
   }
 }
