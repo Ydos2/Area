@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'constants.dart';
 
+import 'package:area/screens/Login/home_view.dart';
 import 'package:area/screens/Welcome/welcome_screen.dart';
 import 'package:area/constants.dart';
 import 'package:area/HomeRouterDelegate.dart';
@@ -41,6 +42,7 @@ class MyApp extends StatelessWidget {
               bodyText2: TextStyle(color: bodyTextColor),
             ),
       ),
+      home: HomeView(),
       //initialRoute: WelcomeScreen.route,
       //onGenerateRoute: RouteConfiguration.onGenerateRoute,
       //home: WelcomeScreen(),
