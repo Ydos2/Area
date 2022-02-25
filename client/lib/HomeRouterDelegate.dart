@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print, file_names, unused_import
+
 import 'package:area/locator.dart';
 import 'package:area/routing/route_names.dart';
 import 'package:area/routing/router.dart';

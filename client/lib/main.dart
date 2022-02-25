@@ -11,6 +11,8 @@ import 'package:area/HomeRouterDelegate.dart';
 import 'package:area/HomeRouteInformationParser.dart';
 import 'package:area/locator.dart';
 
+import 'package:area/screens/Login/login_screen.dart';
+
 void main() {
   setupLocator();
   runApp(const MyApp());
@@ -66,6 +68,10 @@ class RouteConfiguration {
   /// will be returned. This means that the paths higher up in the list will
   /// take priority.
   static List<Path> paths = [
+    Path(
+      r'^' + LoginScreen.route,
+      (context, match) => LoginScreen(),
+    ),
     Path(
       r'^' + WelcomeScreen.route,
       (context, match) => WelcomeScreen(),
