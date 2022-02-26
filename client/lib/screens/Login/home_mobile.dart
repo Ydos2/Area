@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:area/screens/home/home_screen.dart';
 
 class HomeMobile extends StatelessWidget {
   @override
@@ -9,16 +10,12 @@ class HomeMobile extends StatelessWidget {
       body: Center(
         child: Card(
           elevation: 5,
-          margin: EdgeInsets.symmetric(
-            horizontal: 70.0,
-            vertical: 50.0
-          ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(17.0)
-          ),
+          margin: EdgeInsets.symmetric(horizontal: 70.0, vertical: 50.0),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(17.0)),
           child: Container(
             width: double.infinity,
-            margin: EdgeInsets.symmetric(horizontal:30),
+            margin: EdgeInsets.symmetric(horizontal: 30),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -38,8 +35,8 @@ class HomeMobile extends StatelessWidget {
                 Align(
                   alignment: Alignment.topRight,
                   child: FlatButton(
-                    onPressed: (){},
-                    child:Text(
+                    onPressed: () {},
+                    child: Text(
                       "Forgot Password?",
                       style: TextStyle(
                         color: Colors.blue,
@@ -48,20 +45,24 @@ class HomeMobile extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height:20.0),
+                SizedBox(height: 20.0),
                 Container(
                   width: double.infinity,
                   height: 50.0,
                   child: RaisedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => HomeScreen()),
+                      );
+                    },
                     color: Color(0xFFF3630B),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(25),
-                        bottomRight: Radius.circular(25),
-                        topLeft: Radius.circular(25),
-                      )
-                    ),
+                        borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(25),
+                      bottomRight: Radius.circular(25),
+                      topLeft: Radius.circular(25),
+                    )),
                     child: Text(
                       "Sign in",
                       style: TextStyle(
@@ -74,7 +75,7 @@ class HomeMobile extends StatelessWidget {
                 SizedBox(height: 20.0),
                 Center(
                   child: RichText(
-                    text: TextSpan(children : [
+                    text: TextSpan(children: [
                       TextSpan(
                         text: "Don't have an account?",
                         style: TextStyle(
@@ -100,23 +101,22 @@ class HomeMobile extends StatelessWidget {
       ),
     );
   }
-  Widget buildCustomTextField(String title, String hinText, bool isPassword){
+
+  Widget buildCustomTextField(String title, String hinText, bool isPassword) {
     return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          title,
-          style: TextStyle(fontSize: 15, color: Colors.black),
-        ),
-        TextFormField(
-          obscureText: isPassword,
-          cursorColor: Color(0xFFF36308),
-          decoration: InputDecoration(
-            hintText: hinText,
-          )
-        )
-      ]
-    );
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            title,
+            style: TextStyle(fontSize: 15, color: Colors.black),
+          ),
+          TextFormField(
+              obscureText: isPassword,
+              cursorColor: Color(0xFFF36308),
+              decoration: InputDecoration(
+                hintText: hinText,
+              ))
+        ]);
   }
 }
