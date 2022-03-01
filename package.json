@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.mjs",
   "scripts": {
-    "start": "node index.mjs",
+    "start": "node server/index.mjs",
     "build": "npm install",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -24,8 +24,6 @@
   "homepage": "https://github.com/EpitechPromo2024/B-DEV-500-TLS-5-1-cardgames-mathias.ressort#readme",
   "dependencies": {
     "crypto": "^1.0.1",
-    "discord": "^0.8.2",
-    "discord.js": "^13.6.0",
     "emailjs": "^3.6.0",
     "express": "^4.17.1",
     "firebase": "^9.4.1",
