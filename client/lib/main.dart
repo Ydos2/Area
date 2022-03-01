@@ -6,7 +6,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'constants.dart';
 
 import 'package:area/screens/Login/home_view.dart';
-import 'package:area/screens/Welcome/welcome_screen.dart';
 import 'package:area/constants.dart';
 import 'package:area/HomeRouterDelegate.dart';
 import 'package:area/HomeRouteInformationParser.dart';
@@ -23,7 +22,23 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Area',
+      theme: ThemeData.dark().copyWith(
+        primaryColor: primaryColor,
+        scaffoldBackgroundColor: bgColor,
+        canvasColor: bgColor,
+        textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)
+            .apply(bodyColor: Colors.white)
+            .copyWith(
+              bodyText1: TextStyle(color: bodyTextColor),
+              bodyText2: TextStyle(color: bodyTextColor),
+            ),
+      ),
+      home: HomeScreen(),
+    );
+    /*return MaterialApp.router(
       routerDelegate: HomeRouterDelegate(),
       routeInformationParser: HomeRouteInformationParser(),
       debugShowCheckedModeBanner: false,
@@ -44,10 +59,10 @@ class MyApp extends StatelessWidget {
       //onGenerateRoute: RouteConfiguration.onGenerateRoute,
       //home: WelcomeScreen(),
       //home: HomeScreen(),
-    );
+    );*/
   }
 }
-
+/*
 class Path {
   const Path(this.pattern, this.builder);
 
@@ -103,3 +118,4 @@ class RouteConfiguration {
     return null;
   }
 }
+*/

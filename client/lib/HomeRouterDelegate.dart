@@ -6,7 +6,6 @@ import 'package:area/routing/router.dart';
 import 'package:flutter/material.dart';
 
 import 'package:area/HomeRoutePath.dart';
-import 'package:area/screens/Welcome/welcome_screen.dart';
 import 'package:area/screens/unkown/unkown_page.dart';
 import 'package:area/screens/handle/handle_page.dart';
 import 'package:area/screens/home/home_screen.dart';

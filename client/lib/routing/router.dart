@@ -3,7 +3,6 @@ import 'package:flutter/widgets.dart';
 import 'package:area/routing/route_names.dart';
 
 import 'package:area/screens/home/home_screen.dart';
-import 'package:area/screens/Welcome/welcome_screen.dart';
 import 'package:area/screens/Login/home_view.dart';
 import 'package:area/screens/unkown/unkown_page.dart';
 
