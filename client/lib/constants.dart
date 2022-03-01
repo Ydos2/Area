@@ -16,9 +16,9 @@ const kPrimaryLightColor = Color(0xFFF1E6FF);
 // Nouvelle pallette de couleur
 
 //Pallette claire
-const pc1 = Color(0xFF737373);
+const pc1 = Color(0xFFF8FBF9);
 const pc2 = Color(0xFFCECECE);
-const pc3 = Color(0xFFF8FBF9);
+const pc3 = Color(0xFF737373);
 const pc4 = Color(0xFF0081AA);
 const pc5 = Color(0xFF046DA2);
 

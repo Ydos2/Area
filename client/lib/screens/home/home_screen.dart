@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:area/screens/main/main_screen.dart';
 
-import '../../components/NavBar.dart';
+import 'package:area/settings.dart';
+import 'package:area/constants.dart';
+import 'package:area/components/NavBar.dart';
 import 'components/heighlights.dart';
 import 'components/home_banner.dart';
 import 'components/my_projects.dart';
@@ -36,7 +38,10 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Sidenav app')),
+      appBar: AppBar(
+        title: const Text('Home'),
+        backgroundColor: settings.dark_mode ? pf2 : pc3,
+      ),
       drawer: NavBar(),
     );
   }

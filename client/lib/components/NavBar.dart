@@ -1,6 +1,15 @@
 import 'dart:io';
 
+import 'package:area/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
+
+import 'package:area/screens/settings/settings_screen.dart';
+import 'package:area/screens/pages/discord/discord.dart';
+import 'package:area/screens/pages/github/github.dart';
+import 'package:area/screens/pages/insta/insta.dart';
+import 'package:area/screens/pages/twitch/twitch.dart';
+import 'package:area/screens/pages/youtube/youtube.dart';
+import 'package:area/screens/Login/home_view.dart';
 
 class NavBar extends StatelessWidget {
   @override
@@ -34,7 +43,16 @@ class NavBar extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.home),
             title: const Text('Home'),
-            onTap: () => null,
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return Home();
+                  },
+                ),
+              );
+            },
           ),
           ListTile(
             leading: const Icon(Icons.notifications),
@@ -61,29 +79,101 @@ class NavBar extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.person),
             title: const Text('Youtube'),
-            onTap: () => null,
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return YoutubeState();
+                  },
+                ),
+              );
+            },
           ),
           ListTile(
             leading: const Icon(Icons.discord),
             title: const Text('Discord'),
-            onTap: () => null,
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return DiscordState();
+                  },
+                ),
+              );
+            },
           ),
           ListTile(
             leading: const Icon(Icons.facebook),
             title: const Text('Instagram'),
-            onTap: () => null,
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return InstagramState();
+                  },
+                ),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.code),
+            title: const Text('Github'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return GithubState();
+                  },
+                ),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.support_agent),
+            title: const Text('Twitch'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return TwitchState();
+                  },
+                ),
+              );
+            },
           ),
           const Divider(),
           ListTile(
             leading: const Icon(Icons.settings),
             title: const Text('Settings'),
-            onTap: () => null,
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return SettingsState();
+                  },
+                ),
+              );
+            },
           ),
           ListTile(
-            title: const Text('Exit'),
-            leading: const Icon(Icons.exit_to_app),
-            onTap: () => exit(0),
-          ),
+              title: const Text('Logout'),
+              leading: const Icon(Icons.exit_to_app),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return HomeView();
+                    },
+                  ),
+                );
+              }),
         ],
       ),
     );
