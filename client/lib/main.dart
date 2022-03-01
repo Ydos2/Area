@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
               bodyText2: TextStyle(color: bodyTextColor),
             ),
       ),
-      home: HomeScreen(),
+      home: HomeView(),
     );
     /*return MaterialApp.router(
       routerDelegate: HomeRouterDelegate(),

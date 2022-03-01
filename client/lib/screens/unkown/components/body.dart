@@ -53,8 +53,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
                   width: 641,
                   height: 310,
                   child: Stack(
-                    overflow: Overflow.visible,
-                    children: [
+                    clipBehavior: Clip.none, children: [
                       // Shadow
                       AnimatedPositioned(
                         duration: duration,
