@@ -1,10 +1,11 @@
+// ignore_for_file: avoid_print, file_names, unused_import
+
 import 'package:area/locator.dart';
 import 'package:area/routing/route_names.dart';
 import 'package:area/routing/router.dart';
 import 'package:flutter/material.dart';
 
 import 'package:area/HomeRoutePath.dart';
-import 'package:area/screens/Welcome/welcome_screen.dart';
 import 'package:area/screens/unkown/unkown_page.dart';
 import 'package:area/screens/handle/handle_page.dart';
 import 'package:area/screens/home/home_screen.dart';

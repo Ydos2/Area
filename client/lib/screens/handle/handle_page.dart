@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:area/screens/home/home_screen.dart';
 import 'package:area/screens/unkown/unkown_page.dart';
-import 'package:area/screens/Login/login_screen.dart';
+import 'package:area/screens/Login/home_view.dart';
 
 class HandlePage extends StatelessWidget {
   final String pathName;
@@ -16,7 +16,7 @@ class HandlePage extends StatelessWidget {
         );
       case 'login':
         return Scaffold(
-          body: LoginScreen(),
+          body: HomeView(),
         );
       default:
         return Scaffold(

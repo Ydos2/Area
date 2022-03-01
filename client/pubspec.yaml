@@ -38,6 +38,9 @@ dependencies:
   flutter_svg: ^1.0.3
   animated_text_kit: ^4.2.1
   get_it: ^7.2.0
+  responsive_builder: ^0.4.2
+  simple_animations: ^4.0.1
+  font_awesome_flutter: ^9.2.0
 
 dev_dependencies:
   flutter_test:
@@ -60,6 +63,12 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  fonts:
+  - family: Raleway
+    fonts:
+      - asset: fonts/raleway_regular.ttf
+      - asset: fonts/raleway_bold.ttf
+        weight: 800
 
   # To add assets to your application, add an assets section, like this:
   assets:
