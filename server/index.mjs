@@ -8,7 +8,8 @@ import { getDatabase, ref, set, get, child } from "firebase/database";
 import { initializeApp } from "firebase/app";
 import { timeData } from './TimeData.mjs';
 import fetch from 'node-fetch';
-import { time } from 'console';
+import { sendMessageTo } from './discordBot.js';
+import { Console, time } from 'console';
 
 const firebaseConfig = {
     apiKey: "AIzaSyDlBOlNSbS7qDhpvzdFtLI_s1F_L-Z_74U",
@@ -33,32 +34,29 @@ const app = express();
 // DATA FIELDS
 
 var timeDat = new timeData();
-timeDat.init();
+
+timeDat.update();
+app.use(express.static(path.resolve(__dirname, '../client/build')));
 
 // END DATA FIELDS
 
 setInterval( () => {
-    timeDat.init();
+    timeDat.update();
     console.log(timeDat.time);
 }, 60000);
-
-
 
 function sendOAuthMail(mail, confirmation, token) {
 	client.send({
     from : "joojnathan.popolaf@gmail.com",
     to : mail,
 	subject : "[DashBob] > " + (confirmation === true ? "Account confirmation" : "Login confirmation"),
-	text : "Hello, click on the following link to confirm that this is you, if its not, please ignore this mail\n\nhttp://localhost:8080/confirmRegister?token=" + token + "&mail=" + mail,
+	text : "Hello, click on the following link to confirm that this is you, if its not, please ignore this mail\n\nhttp://localhost:8080/user/confirmRegister?token=" + token + "&mail=" + mail,
 	},
 	(err, message) => {
 		console.log(err || message);
-    });
-}
+    });}
 
-app.use(express.static(path.resolve(__dirname, '../client/build')));
-
-app.get("/login", (req, res) => {
+app.get("/user/login", (req, res) => {
     var pass = req.query.pass;
     var mail = req.query.mail;
     if (!pass || !mail)
@@ -84,7 +82,7 @@ app.get("/login", (req, res) => {
     });
     });
 
-app.get("/confirmRegister", (req, res) => {
+app.get("/user/confirmRegister", (req, res) => {
     const dbRef = ref(getDatabase());
     var mail = req.query.mail;
     var path = "users/" + mail.replace(".", "_");
@@ -108,7 +106,7 @@ app.get("/confirmRegister", (req, res) => {
     });
 });
 
-app.get("/register", (req, res) => {
+app.get("/user/register", (req, res) => {
     var pass = req.query.pass;
     var mail = req.query.mail;
     if (!pass || !mail)
@@ -119,16 +117,25 @@ app.get("/register", (req, res) => {
         mail: mail,
         password: pass,
         registerKey : token
-      });
-      sendOAuthMail(mail, true, token);
-      res.status(200).json({ message: "c\'est ok"});
+    });
+    sendOAuthMail(mail, true, token);
+    res.status(200).json({ message: "c\'est ok"});
 });
 
-app.get("/api", (req, res) => {
-    res.json({ message: "Hello from server!" });
+app.get("/tests/discord", async (req, res) => {
+    try {
+        var message = req.query.message;
+        var userID = req.query.userID;
+
+        await sendMessageTo(userID, message === undefined ? "Hello champ, the link to your account worked !\nhttps://www.youtube.com/watch?v=Ux5cQbO_ybw" : message);
+        res.json({message: "success"}).status(200);
+    } catch (err) {
+        console.log(err);
+        res.json({error: "Either the bot don't have permissions or the id is null"}).status(401);
+    }
 });
 
-app.get("/timeMail", (req, res) => {
+app.get("/area/time/sendMail", (req, res) => {
     var object = req.query.object;
     var content = req.query.content;
     var mail = req.query.mail;
@@ -140,25 +147,23 @@ app.get("/timeMail", (req, res) => {
     res.json({message: "success !"}).status(200);
 });
 
-app.get("/time", async (req, res) => {
-   
-    res.json({time: timeDat.time,
-    date: timeDat.date})
-/*    var q = req.query.place;
-    if (q === undefined) {
-        q = "Toulouse";
-    }
-   
-    if (response.status == 200) {*/
-/*        res.json({city: json.location.name,
-        region: json.location.region,
-        country: json.location.country,
-        date: time[0],
-        time: time[1]});
-    }*/
+app.get("/area/time/sendDiscordPM", (req, res) => {
+    var message = req.query.content;
+    var userID = req.query.userID;
+    var time = req.query.time;
+
+    if (!userID || !time)
+        res.json({ error: "missing data" }).status(401);
+    timeDat.addAreaDiscord(userID, message, time, timeDat.date);
+    res.json({message: "success !"}).status(200);
 });
 
-app.get("/weather", async (req, res) => {
+app.get("/data/time", async (req, res) => {
+    res.json({time: timeDat.time,
+    date: timeDat.date})
+});
+
+app.get("/data/weather", async (req, res) => {
     var q = req.query.place;
     if (q === undefined) {
         q = "Toulouse";
@@ -180,7 +185,7 @@ app.get("/weather", async (req, res) => {
     }
 });
 
-app.post("/registerYtbKey", (req, res) => {
+app.post("/oauthKeys/registerYtbKey", (req, res) => {
     var state = crypto.randomBytes(20).toString('hex');
     var currUrl = ytbLogUrl + state;
     window.location.replace(currUrl);
