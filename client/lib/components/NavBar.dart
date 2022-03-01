@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_returning_null_for_void, file_names
+
 import 'dart:io';
 
 import 'package:area/screens/home/home_screen.dart';
@@ -20,7 +22,7 @@ class NavBar extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           UserAccountsDrawerHeader(
-            accountName: Text('Oflutter.com'),
+            accountName: const Text('Oflutter.com'),
             accountEmail: Text('example@gmail.com'),
             currentAccountPicture: CircleAvatar(
               child: ClipOval(
@@ -57,6 +59,7 @@ class NavBar extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.notifications),
             title: const Text('Notifications'),
+            // ignore: avoid_returning_null_for_void
             onTap: () => null,
             trailing: ClipOval(
               child: Container(
@@ -77,7 +80,7 @@ class NavBar extends StatelessWidget {
           ),
           const Divider(),
           ListTile(
-            leading: Icon(Icons.person),
+            leading: const Icon(Icons.person),
             title: const Text('Youtube'),
             onTap: () {
               Navigator.push(
