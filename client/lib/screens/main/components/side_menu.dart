@@ -1,3 +1,4 @@
+import 'package:area/screens/Login/home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:area/constants.dart';
 import 'package:flutter_svg/svg.dart';
@@ -36,7 +37,13 @@ class SideMenu extends StatelessWidget {
                     const Divider(),
                     const SizedBox(height: defaultPadding / 2),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => HomeView()),
+                        );
+                      },
                       child: FittedBox(
                         child: Row(
                           children: [

@@ -1,4 +1,5 @@
 import 'package:area/routing/route_names.dart';
+import 'package:area/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -24,7 +25,10 @@ class ErrorText extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(100)),
           ),
           onPressed: () {
-            locator<NavigationService>().navigateTo(HomeRoute);
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const HomeScreen()),
+            );
           },
           child: Text(
             "Back To Home".toUpperCase(),
