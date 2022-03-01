@@ -2,7 +2,8 @@
 import 'package:email_validator/email_validator.dart';
 
 class input_checker {
-  String? checkInfo(String password, String secondPassword, String email, String name){
+  String? checkInfo(
+      String password, String secondPassword, String email, String name) {
     RegExp regEx = RegExp(r"(?=.*[a-z])(?=.*[A-Z])\w+");
 
     if (email.isEmpty || name.isEmpty || password.isEmpty || email.isEmpty) {
@@ -14,10 +15,10 @@ class input_checker {
     if (regEx.hasMatch(password) == false) {
       return "Password must contain at least one upper and one lower character";
     }
-    if (identical(secondPassword,password)){
+    if (identical(secondPassword, password)) {
       return "The two passwords must be the same";
     }
-    if (!EmailValidator.validate(email)){
+    if (!EmailValidator.validate(email)) {
       return "Email is not valid";
     }
 
