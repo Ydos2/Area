@@ -4,6 +4,7 @@ import 'package:area/screens/main/main_screen.dart';
 import 'package:area/settings.dart';
 import 'package:area/constants.dart';
 import 'package:area/components/NavBar.dart';
+
 import 'components/heighlights.dart';
 import 'components/home_banner.dart';
 import 'components/my_projects.dart';

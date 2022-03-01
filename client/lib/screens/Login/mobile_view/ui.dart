@@ -7,6 +7,8 @@ import 'package:area/screens/Login/mobile_view/utils.dart';
 import 'package:area/screens/Login/mobile_view/theme.dart' as Theme;
 import 'package:area/constants.dart';
 
+import 'package:area/components/ActionsFetch.dart';
+
 class mobile_view extends StatefulWidget {
   const mobile_view({Key? key}) : super(key: key);
 
@@ -248,7 +250,7 @@ class _mobile_viewState extends State<mobile_view>
                             ),
                             hintText: "Email Address",
                             hintStyle: TextStyle(
-                                fontFamily: "Raleway", 
+                                fontFamily: "Raleway",
                                 fontSize: 17.0,
                                 color: pc1),
                           ),
@@ -279,7 +281,7 @@ class _mobile_viewState extends State<mobile_view>
                             ),
                             hintText: "Password",
                             hintStyle: const TextStyle(
-                                fontFamily: "Raleway", 
+                                fontFamily: "Raleway",
                                 fontSize: 17.0,
                                 color: pc1),
                             suffixIcon: GestureDetector(
@@ -341,7 +343,15 @@ class _mobile_viewState extends State<mobile_view>
                             fontWeight: FontWeight.w800),
                       ),
                     ),
-                    onPressed: () => showInSnackBar("Login button pressed")),
+                    onPressed: () {
+                      showInSnackBar("Login button pressed");
+                      // ICI LOGIN
+                      print("email : " + loginEmailController.text);
+                      print("password : " + loginPasswordController.text);
+                      Future<int> i = ActionsFetch().fetchLogin(
+                          loginEmailController.text,
+                          loginPasswordController.text);
+                    }),
               ),
             ],
           ),
@@ -506,7 +516,7 @@ class _mobile_viewState extends State<mobile_view>
                             ),
                             hintText: "Email Address",
                             hintStyle: TextStyle(
-                                fontFamily: "Raleway", 
+                                fontFamily: "Raleway",
                                 fontSize: 16.0,
                                 color: pc1),
                           ),
@@ -536,7 +546,7 @@ class _mobile_viewState extends State<mobile_view>
                             ),
                             hintText: "Password",
                             hintStyle: const TextStyle(
-                                fontFamily: "Raleway", 
+                                fontFamily: "Raleway",
                                 fontSize: 16.0,
                                 color: pc1),
                             suffixIcon: GestureDetector(
@@ -575,7 +585,7 @@ class _mobile_viewState extends State<mobile_view>
                             ),
                             hintText: "Confirmation",
                             hintStyle: const TextStyle(
-                                fontFamily: "Raleway", 
+                                fontFamily: "Raleway",
                                 fontSize: 16.0,
                                 color: pc1),
                             suffixIcon: GestureDetector(
