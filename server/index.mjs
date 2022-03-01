@@ -50,7 +50,7 @@ function sendOAuthMail(mail, confirmation, token) {
     from : "joojnathan.popolaf@gmail.com",
     to : mail,
 	subject : "[DashBob] > " + (confirmation === true ? "Account confirmation" : "Login confirmation"),
-	text : "Hello, click on the following link to confirm that this is you, if its not, please ignore this mail\n\nhttp://localhost:8080/user/confirmRegister?token=" + token + "&mail=" + mail,
+	text : "Hello, click on the following link to confirm that this is you, if its not, please ignore this mail\n\nhttps://areachad.herokuapp.com/user/confirmRegister?token=" + token + "&mail=" + mail,
 	},
 	(err, message) => {
 		console.log(err || message);
