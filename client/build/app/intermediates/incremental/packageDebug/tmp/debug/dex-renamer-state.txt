@@ -1,4 +1,4 @@
-#Fri Feb 25 14:07:45 CET 2022
+#Tue Mar 01 14:56:56 CET 2022
 base.0=/home/mcombalbert/area/client/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
 renamed.0=classes.dex
 path.0=classes.dex
