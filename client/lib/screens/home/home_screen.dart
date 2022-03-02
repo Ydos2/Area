@@ -36,6 +36,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int navIndex = 0;
   String nameCity = "Paris";
+  late Future<Joke> joke;
 
   TextEditingController cityController = TextEditingController();
 
@@ -47,6 +48,7 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     paris = ActionsFetch().fetchWeather(nameCity);
+    joke = ActionsFetch().fetchJoke();
   }
 
   void refreshWeather() {
@@ -57,63 +59,109 @@ class _HomeState extends State<Home> {
     });
   }
 
+  void refreshJoke() {
+    // reload
+    setState(() {
+      joke = ActionsFetch().fetchJoke();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home'),
-        backgroundColor: settings.dark_mode ? pf2 : pc3,
-      ),
-      backgroundColor: settings.dark_mode ? pf1 : pc1,
-      drawer: NavBar(),
-      body: FutureBuilder<Weather>(
-          future: paris,
-          builder: (context, snapshot) {
-            if (snapshot.hasError) {
-              return Text('Error: ${snapshot.error}');
-            } else if (snapshot.hasData) {
-              return Card(
-                color: settings.dark_mode ? pf2 : pc2,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    ListTile(
-                      leading: Image(
-                          image: NetworkImage("http:" + snapshot.data!.icon)),
-                      title: Text(nameCity),
-                      subtitle: Text(
-                          "Weather: " +
-                              snapshot.data!.weather +
-                              "\nTemperature: " +
-                              snapshot.data!.temperature,
-                          style: Theme.of(context).textTheme.bodyMedium),
-                      textColor: settings.dark_mode ? pc1 : pc1,
+        appBar: AppBar(
+          title: const Text('Home'),
+          backgroundColor: settings.dark_mode ? pf2 : pc3,
+        ),
+        backgroundColor: settings.dark_mode ? pf1 : pc1,
+        drawer: NavBar(),
+        body: Column(children: <Widget>[
+          FutureBuilder<Weather>(
+              future: paris,
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                } else if (snapshot.hasData) {
+                  return Card(
+                    color: settings.dark_mode ? pf2 : pc2,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        ListTile(
+                          leading: Image(
+                              image:
+                                  NetworkImage("http:" + snapshot.data!.icon)),
+                          title: Text(nameCity),
+                          subtitle: Text(
+                              "Weather: " +
+                                  snapshot.data!.weather +
+                                  "\nTemperature: " +
+                                  snapshot.data!.temperature,
+                              style: Theme.of(context).textTheme.bodyMedium),
+                          textColor: settings.dark_mode ? pc1 : pc1,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 0),
+                          child: TextField(
+                              decoration: const InputDecoration(
+                                  border: UnderlineInputBorder(),
+                                  labelText: "Enter a city"),
+                              controller: cityController),
+                        ),
+                        TextButton(
+                          style: TextButton.styleFrom(
+                            textStyle: const TextStyle(fontSize: 20),
+                          ),
+                          onPressed: () {
+                            refreshWeather();
+                          },
+                          child: const Text('Apply'),
+                        ),
+                      ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 0),
-                      child: TextField(
-                          decoration: const InputDecoration(
-                              border: UnderlineInputBorder(),
-                              labelText: "Enter a city"),
-                          controller: cityController),
-                    ),
-                    TextButton(
-                      style: TextButton.styleFrom(
-                        textStyle: const TextStyle(fontSize: 20),
-                      ),
-                      onPressed: () {
-                        refreshWeather();
-                      },
-                      child: const Text('Apply'),
-                    ),
-                  ],
-                ),
-              );
-            }
+                  );
+                }
 
-            return const CircularProgressIndicator();
-          }),
-    );
+                return const CircularProgressIndicator();
+              }),
+          FutureBuilder<Joke>(
+              future: joke,
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                } else if (snapshot.hasData) {
+                  return Card(
+                    color: settings.dark_mode ? pf2 : pc2,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        ListTile(
+                          leading: const Image(
+                              image: NetworkImage(
+                                  "https://assets.stickpng.com/images/584f0ac96a5ae41a83ddee60.png")),
+                          title: Text("Setup: " +
+                              snapshot.data!.setup +
+                              "\nPunchline: " +
+                              snapshot.data!.punchline),
+                          textColor: settings.dark_mode ? pc1 : pc1,
+                        ),
+                        TextButton(
+                          style: TextButton.styleFrom(
+                            textStyle: const TextStyle(fontSize: 20),
+                          ),
+                          onPressed: () {
+                            refreshJoke();
+                          },
+                          child: const Text('Refresh'),
+                        ),
+                      ],
+                    ),
+                  );
+                }
+
+                return const CircularProgressIndicator();
+              }),
+        ]));
   }
 }

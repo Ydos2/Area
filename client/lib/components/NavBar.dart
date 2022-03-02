@@ -12,6 +12,7 @@ import 'package:area/screens/pages/github/github.dart';
 import 'package:area/screens/pages/insta/insta.dart';
 import 'package:area/screens/pages/twitch/twitch.dart';
 import 'package:area/screens/pages/youtube/youtube.dart';
+import 'package:area/screens/pages/mail/mail.dart';
 import 'package:area/screens/notifications/notifications.dart';
 import 'package:area/screens/Login/home_view.dart';
 import 'package:get/get.dart';
@@ -21,9 +22,12 @@ import '../screens/Login/mobile_view/google_login_controller.dart';
 class NavBar extends StatelessWidget {
   final googleController = Get.put(LoginController());
   final userController = Get.put(UserController());
+
   void initState() {
     if (userController.username == null) {
       userController.username = userController.email.split('@')[0];
+    } else {
+      userController.username = "default name";
     }
     if (userController.profilePic == null) {
       userController.profilePic = "assets/images/pluto.svg";
@@ -104,6 +108,20 @@ class NavBar extends StatelessWidget {
             ),
           ),
           const Divider(),
+          ListTile(
+            leading: const Icon(Icons.mail),
+            title: const Text('Mail'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return MailState();
+                  },
+                ),
+              );
+            },
+          ),
           ListTile(
             leading: const Icon(Icons.person),
             title: const Text('Youtube'),
