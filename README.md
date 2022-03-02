@@ -98,7 +98,7 @@ it is **mandatory** to have the bot in a server you are in.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;`message`=A custom message you want to recieve (None for default).<br>
 &nbsp;&nbsp;&nbsp;&nbsp;`time`=When should the user be pinged (exemple: `time=11:25`)<br><br>
 
-`/area/time/discord`<br>
+`/area/time/mail`<br>
 This route will send a mail when a certain time is reached.<br><br>
 **params** <br>
 &nbsp;&nbsp;&nbsp;&nbsp;`mail`=The mail that should revieve the message.<br>
