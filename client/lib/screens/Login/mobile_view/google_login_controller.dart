@@ -9,7 +9,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 class LoginController extends GetxController {
   final _googleSignin = GoogleSignIn();
   var account = Rx<GoogleSignInAccount?>(null);
-    final userController = Get.put(UserController());
+  final userController = Get.put(UserController());
 
   login(context) async {
     account.value = await _googleSignin.signIn().then(
@@ -18,11 +18,13 @@ class LoginController extends GetxController {
           userController.email = value.email;
           userController.username = value.displayName!;
           userController.profilePic = value.photoUrl!;
+          print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const HomeScreen()),
           );
         } else {
+          print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
           showDialog(
               context: context,
               // ignore: prefer_const_constructors

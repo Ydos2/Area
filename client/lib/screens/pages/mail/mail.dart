@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:area/settings.dart';
@@ -6,18 +7,20 @@ import 'package:area/constants.dart';
 import 'package:area/components/NavBar.dart';
 import 'package:area/components/ActionsFetch.dart';
 
-class DiscordState extends StatefulWidget {
-  const DiscordState({Key? key}) : super(key: key);
+class MailState extends StatefulWidget {
+  const MailState({Key? key}) : super(key: key);
 
   @override
-  State<DiscordState> createState() => StatefulDiscord();
+  State<MailState> createState() => StatefulMail();
 }
 
-class StatefulDiscord extends State<DiscordState> {
+class StatefulMail extends State<MailState> {
   bool _dark = settings.dark_mode;
   TimeOfDay selectedTime = TimeOfDay.now();
 
-  TextEditingController messageController = TextEditingController();
+  TextEditingController mailController = TextEditingController();
+  TextEditingController contentController = TextEditingController();
+  TextEditingController objectController = TextEditingController();
 
   @override
   void initState() {
@@ -25,16 +28,10 @@ class StatefulDiscord extends State<DiscordState> {
     _dark = settings.dark_mode;
   }
 
-  void sendDiscord() {
+  void sendEmail() {
     setState(() {
-      ActionsFetch().fetchDiscord(messageController.text,
-          "${selectedTime.hour}:${selectedTime.minute}");
-    });
-  }
-
-  void connectDiscord() {
-    setState(() {
-      ActionsFetch().fetchConnectDiscord();
+      ActionsFetch().fetchEmail(mailController.text, contentController.text,
+          objectController.text, "${selectedTime.hour}:${selectedTime.minute}");
     });
   }
 
@@ -55,7 +52,7 @@ class StatefulDiscord extends State<DiscordState> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Discord'),
+        title: const Text('Mail'),
         backgroundColor: settings.dark_mode ? pf2 : pc3,
       ),
       drawer: NavBar(),
@@ -70,10 +67,26 @@ class StatefulDiscord extends State<DiscordState> {
             children: <Widget>[
               TextField(
                 obscureText: false,
-                controller: messageController,
+                controller: mailController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'message',
+                  labelText: 'mail',
+                ),
+              ),
+              TextField(
+                obscureText: false,
+                controller: contentController,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'content',
+                ),
+              ),
+              TextField(
+                obscureText: false,
+                controller: objectController,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'object',
                 ),
               ),
               ElevatedButton(
@@ -88,20 +101,10 @@ class StatefulDiscord extends State<DiscordState> {
                   textStyle: const TextStyle(fontSize: 20),
                 ),
                 onPressed: () {
-                  sendDiscord();
+                  sendEmail();
                   showInSnackBar("Email send !");
                 },
                 child: const Text('Send Email'),
-              ),
-              TextButton(
-                style: TextButton.styleFrom(
-                  textStyle: const TextStyle(fontSize: 20),
-                ),
-                onPressed: () {
-                  connectDiscord();
-                  showInSnackBar("Discord is connected !");
-                },
-                child: const Text('Connect to discord'),
               ),
             ],
           ),

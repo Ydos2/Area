@@ -353,12 +353,13 @@ class _mobile_viewState extends State<mobile_view>
                     ),
                     onPressed: () {
                       showInSnackBar("Login button pressed");
-                      // ICI LOGIN
+                      //ICI LOGIN
                       print("email : " + loginEmailController.text);
                       print("password : " + loginPasswordController.text);
                       Future<int> i = ActionsFetch().fetchLogin(
                           loginEmailController.text,
-                          loginPasswordController.text);
+                          loginPasswordController.text,
+                          context);
                     }),
               ),
             ],
@@ -662,8 +663,16 @@ class _mobile_viewState extends State<mobile_view>
                           signupConfirmPasswordController.text,
                           signupEmailController.text,
                           signupNameController.text);
+
                       if (result != null) {
                         showInSnackBar(result);
+                      } else {
+                        showInSnackBar("Good register !");
+                        // ICI REGISTER
+                        Future<int> i = ActionsFetch().fetchRegister(
+                            signupEmailController.text,
+                            signupPasswordController.text,
+                            signupNameController.text);
                       }
                     }),
               ),
