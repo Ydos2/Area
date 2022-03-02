@@ -47,6 +47,11 @@ setInterval( () => {
     console.log(timeDat.time);
 }, 60000);
 
+String.prototype.replaceAll = function(str1, str2, ignore) 
+{
+    return this.replace(new RegExp(str1.replace(/([\/\,\!\\\^\$\{\}\[\]\(\)\.\*\+\?\|\<\>\-\&])/g,"\\$&"),(ignore?"gi":"g")),(typeof(str2)=="string")?str2.replace(/\$/g,"$$$$"):str2);
+} 
+
 function sendOAuthMail(mail, confirmation, token) {
 	client.send({
     from : "joojnathan.popolaf@gmail.com",
@@ -64,7 +69,7 @@ app.get("/user/login", (req, res) => {
     if (!pass || !mail)
         res.status(401);
     var dbref = ref(getDatabase());
-    var path = "users/" + mail.replace(".", "_");
+    var path = "users/" + mail.replaceAll(".", "_");
     get(child(dbref, path)).then((snapshot) => {
         if (snapshot.exists() === false) {
             res.status = 401;
