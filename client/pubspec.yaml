@@ -46,6 +46,7 @@ dependencies:
   email_validator: ^2.0.1
   google_sign_in: ^5.2.4
   get: ^4.6.1
+  flutter_local_notifications: ^9.3.3
 
 dev_dependencies:
   flutter_test:

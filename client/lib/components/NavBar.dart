@@ -11,6 +11,7 @@ import 'package:area/screens/pages/github/github.dart';
 import 'package:area/screens/pages/insta/insta.dart';
 import 'package:area/screens/pages/twitch/twitch.dart';
 import 'package:area/screens/pages/youtube/youtube.dart';
+import 'package:area/screens/notifications/notifications.dart';
 import 'package:area/screens/Login/home_view.dart';
 
 class NavBar extends StatelessWidget {
@@ -60,7 +61,16 @@ class NavBar extends StatelessWidget {
             leading: const Icon(Icons.notifications),
             title: const Text('Notifications'),
             // ignore: avoid_returning_null_for_void
-            onTap: () => null,
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return NotifState();
+                  },
+                ),
+              );
+            },
             trailing: ClipOval(
               child: Container(
                 color: Colors.red,
