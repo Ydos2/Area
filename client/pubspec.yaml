@@ -41,6 +41,9 @@ dependencies:
   responsive_builder: ^0.4.2
   simple_animations: ^4.0.1
   font_awesome_flutter: ^9.2.0
+  shared_preferences: ^2.0.13
+  foundation_flutter: ^0.2.0
+  email_validator: ^2.0.1
 
 dev_dependencies:
   flutter_test:

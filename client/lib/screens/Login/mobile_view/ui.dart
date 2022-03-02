@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use, library_prefixes, camel_case_types
+// ignore_for_file: deprecated_member_use, library_prefixes, camel_case_types, unused_local_variable, use_function_type_syntax_for_parameters
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,6 +6,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:area/screens/Login/mobile_view/utils.dart';
 import 'package:area/screens/Login/mobile_view/theme.dart' as Theme;
 import 'package:area/constants.dart';
+import 'package:area/screens/Login/mobile_view/input_checker.dart';
+
+import 'package:area/components/ActionsFetch.dart';
 
 class mobile_view extends StatefulWidget {
   const mobile_view({Key? key}) : super(key: key);
@@ -42,6 +45,8 @@ class _mobile_viewState extends State<mobile_view>
 
   Color left = Colors.black;
   Color right = Colors.white;
+
+  final input_checker c = input_checker();
 
   @override
   Widget build(BuildContext context) {
@@ -153,7 +158,7 @@ class _mobile_viewState extends State<mobile_view>
         style: const TextStyle(
             color: Colors.white, fontSize: 16.0, fontFamily: "Raleway"),
       ),
-      backgroundColor: Colors.blue,
+      backgroundColor: pc5,
       duration: const Duration(seconds: 3),
     ));
   }
@@ -207,6 +212,7 @@ class _mobile_viewState extends State<mobile_view>
       ),
     );
   }
+  
 
   Widget _buildSignIn(BuildContext context) {
     return Container(
@@ -248,9 +254,9 @@ class _mobile_viewState extends State<mobile_view>
                             ),
                             hintText: "Email Address",
                             hintStyle: TextStyle(
-                                fontFamily: "Raleway", 
+                                fontFamily: "Raleway",
                                 fontSize: 17.0,
-                                color: pc1),
+                                color: pc3),
                           ),
                         ),
                       ),
@@ -279,9 +285,9 @@ class _mobile_viewState extends State<mobile_view>
                             ),
                             hintText: "Password",
                             hintStyle: const TextStyle(
-                                fontFamily: "Raleway", 
+                                fontFamily: "Raleway",
                                 fontSize: 17.0,
-                                color: pc1),
+                                color: pc3),
                             suffixIcon: GestureDetector(
                               onTap: _toggleLogin,
                               child: Icon(
@@ -341,7 +347,15 @@ class _mobile_viewState extends State<mobile_view>
                             fontWeight: FontWeight.w800),
                       ),
                     ),
-                    onPressed: () => showInSnackBar("Login button pressed")),
+                    onPressed: () {
+                      showInSnackBar("Login button pressed");
+                      // ICI LOGIN
+                      print("email : " + loginEmailController.text);
+                      print("password : " + loginPasswordController.text);
+                      Future<int> i = ActionsFetch().fetchLogin(
+                          loginEmailController.text,
+                          loginPasswordController.text);
+                    }),
               ),
             ],
           ),
@@ -434,7 +448,6 @@ class _mobile_viewState extends State<mobile_view>
   }
 
   Widget _buildSignUp(BuildContext context) {
-    var fontweight;
     return Container(
       padding: const EdgeInsets.only(top: 23.0),
       child: Column(
@@ -458,7 +471,6 @@ class _mobile_viewState extends State<mobile_view>
                         padding: const EdgeInsets.only(
                             top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
                         child: TextField(
-                          obscureText: true,
                           focusNode: myFocusNodeName,
                           controller: signupNameController,
                           keyboardType: TextInputType.text,
@@ -477,7 +489,7 @@ class _mobile_viewState extends State<mobile_view>
                             hintStyle: TextStyle(
                               fontFamily: "Raleway",
                               fontSize: 16.0,
-                              color: pc1,
+                              color: pc3,
                             ),
                           ),
                         ),
@@ -506,9 +518,9 @@ class _mobile_viewState extends State<mobile_view>
                             ),
                             hintText: "Email Address",
                             hintStyle: TextStyle(
-                                fontFamily: "Raleway", 
+                                fontFamily: "Raleway",
                                 fontSize: 16.0,
-                                color: pc1),
+                                color: pc3),
                           ),
                         ),
                       ),
@@ -536,9 +548,9 @@ class _mobile_viewState extends State<mobile_view>
                             ),
                             hintText: "Password",
                             hintStyle: const TextStyle(
-                                fontFamily: "Raleway", 
+                                fontFamily: "Raleway",
                                 fontSize: 16.0,
-                                color: pc1),
+                                color: pc3),
                             suffixIcon: GestureDetector(
                               onTap: _toggleSignup,
                               child: Icon(
@@ -575,9 +587,9 @@ class _mobile_viewState extends State<mobile_view>
                             ),
                             hintText: "Confirmation",
                             hintStyle: const TextStyle(
-                                fontFamily: "Raleway", 
+                                fontFamily: "Raleway",
                                 fontSize: 16.0,
-                                color: pc1),
+                                color: pc3),
                             suffixIcon: GestureDetector(
                               onTap: _toggleSignupConfirm,
                               child: Icon(
@@ -637,7 +649,14 @@ class _mobile_viewState extends State<mobile_view>
                             fontWeight: FontWeight.w800),
                       ),
                     ),
-                    onPressed: () => showInSnackBar("SignUp button pressed")),
+                    onPressed: () {
+                      String? result;
+                      result = c.checkInfo(signupPasswordController.text, signupConfirmPasswordController.text, signupEmailController.text, signupNameController.text);
+                      if (result != null) {
+                        showInSnackBar(result);
+                      }
+                    }
+              ),
               ),
             ],
           ),
