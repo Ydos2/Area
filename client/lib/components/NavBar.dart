@@ -1,7 +1,8 @@
-// ignore_for_file: avoid_returning_null_for_void, file_names
+// ignore_for_file: avoid_returning_null_for_void, file_names, unnecessary_null_comparison, prefer_conditional_assignment
 
 import 'dart:io';
 
+import 'package:area/components/user.dart';
 import 'package:area/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -11,9 +12,24 @@ import 'package:area/screens/pages/github/github.dart';
 import 'package:area/screens/pages/insta/insta.dart';
 import 'package:area/screens/pages/twitch/twitch.dart';
 import 'package:area/screens/pages/youtube/youtube.dart';
+import 'package:area/screens/notifications/notifications.dart';
 import 'package:area/screens/Login/home_view.dart';
+import 'package:get/get.dart';
+
+import '../screens/Login/mobile_view/google_login_controller.dart';
 
 class NavBar extends StatelessWidget {
+  final googleController = Get.put(LoginController());
+  final userController = Get.put(UserController());
+  void initState() {
+    if (userController.username == null) {
+      userController.username = userController.email.split('@')[0];
+    }
+    if (userController.profilePic == null) {
+      userController.profilePic = "assets/images/pluto.svg";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -22,12 +38,12 @@ class NavBar extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           UserAccountsDrawerHeader(
-            accountName: const Text('Oflutter.com'),
-            accountEmail: Text('example@gmail.com'),
+            accountName: Text(userController.username),
+            accountEmail: Text(userController.email),
             currentAccountPicture: CircleAvatar(
               child: ClipOval(
-                child: Image.asset(
-                  "assets/images/lonk.jpg",
+                child: Image.network(
+                  userController.profilePic,
                   fit: BoxFit.cover,
                   width: 90,
                   height: 90,
@@ -60,7 +76,16 @@ class NavBar extends StatelessWidget {
             leading: const Icon(Icons.notifications),
             title: const Text('Notifications'),
             // ignore: avoid_returning_null_for_void
-            onTap: () => null,
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return NotifState();
+                  },
+                ),
+              );
+            },
             trailing: ClipOval(
               child: Container(
                 color: Colors.red,
@@ -168,6 +193,7 @@ class NavBar extends StatelessWidget {
               title: const Text('Logout'),
               leading: const Icon(Icons.exit_to_app),
               onTap: () {
+                googleController.logout();
                 Navigator.push(
                   context,
                   MaterialPageRoute(
