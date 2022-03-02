@@ -9,8 +9,10 @@ import { initializeApp } from "firebase/app";
 import { timeData } from './TimeData.mjs';
 import fetch from 'node-fetch';
 import { sendMessageTo } from './discordBot.js';
-import { Console, time } from 'console';
+import { getAboutJson } from './about.js';
+//import { getRandomJoke } from './randomJoke.js';
 
+const GITTOKEN = "2088c472-997e-11ec-8b6e-181deac7ef42";
 const firebaseConfig = {
     apiKey: "AIzaSyDlBOlNSbS7qDhpvzdFtLI_s1F_L-Z_74U",
     authDomain: "dashboard-331720.firebaseapp.com",
@@ -109,17 +111,25 @@ app.get("/user/confirmRegister", (req, res) => {
 app.get("/user/register", (req, res) => {
     var pass = req.query.pass;
     var mail = req.query.mail;
-    if (!pass || !mail)
+    var name = req.query.name;
+
+    if (!pass || !mail || !name)
         res.json({ message: "empty password or mail"});
     var token = crypto.randomBytes(15).toString("hex");
-    var path = mail.replace(".", "_");
-    set(ref(db, 'users/' + path), {
-        mail: mail,
-        password: pass,
-        registerKey : token
-    });
-    sendOAuthMail(mail, true, token);
-    res.status(200).json({ message: "c\'est ok"});
+    var path = mail.replaceAll(".", "_");
+    try {
+        set(ref(db, 'users/' + path), {
+            mail: mail,
+            name: name,
+            password: pass,
+            registerKey : token
+        });
+        sendOAuthMail(mail, true, token);
+        res.status(200).json({ message: "c\'est ok"});
+    } catch (e) {
+        console.log(e);
+        res.status(401);
+    }
 });
 
 app.get("/tests/discord", async (req, res) => {
@@ -135,7 +145,7 @@ app.get("/tests/discord", async (req, res) => {
     }
 });
 
-app.get("/area/time/sendMail", (req, res) => {
+app.get("/area/time/mail", (req, res) => {
     var object = req.query.object;
     var content = req.query.content;
     var mail = req.query.mail;
@@ -147,7 +157,7 @@ app.get("/area/time/sendMail", (req, res) => {
     res.json({message: "success !"}).status(200);
 });
 
-app.get("/area/time/sendDiscordPM", (req, res) => {
+app.get("/area/time/discord", (req, res) => {
     var message = req.query.content;
     var userID = req.query.userID;
     var time = req.query.time;
@@ -190,6 +200,15 @@ app.post("/oauthKeys/registerYtbKey", (req, res) => {
     var currUrl = ytbLogUrl + state;
     window.location.replace(currUrl);
 });
+
+app.post("/githook", (req, res) => {
+
+});
+
+app.get("/about.json", (req, res) => {
+    res.json(getAboutJson(req.socket.remoteAddress));
+});
+
 
 app.get('*', (req, res) => {
     res.json({ message: "idk mate" });
