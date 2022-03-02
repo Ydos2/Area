@@ -72,44 +72,73 @@ app.get("/user/login", (req, res) => {
     var path = "users/" + mail.replaceAll(".", "_");
     get(child(dbref, path)).then((snapshot) => {
         if (snapshot.exists() === false) {
-            res.status = 401;
-            res.json ({ message : "Unregistered user"});
+            res.status(401).json ({ message : "Unregistered user"});
             return;
         }
         var currToken = snapshot.child("registerKey").val();
         var savedPass = snapshot.child("password").val();
+        var _username = snapshot.child("name").val();
         if (savedPass != pass || currToken !== "") {
-            res.status = 401;
-            res.json ({ message : "Token or password differs"});
+            res.status(401).json ({ message : "Token or password differs"});
             return;
         }
-        res.status(200);
         crypto.randomBytes(21).toString("hex");
-        res.json ({ message : "connection success"});
+        res.status(200).json ({ username : _username});
     });
-    });
+});
 
 app.get("/user/confirmRegister", (req, res) => {
-    const dbRef = ref(getDatabase());
     var mail = req.query.mail;
-    var path = "users/" + mail.replace(".", "_");
     var token = req.query.token;
+    var path = "users/" + mail.replaceAll(".", "_");
+    const dbRef = ref(getDatabase());
     get(child(dbRef, path)).then((snapshot) => {
         if (snapshot.exists()) {
             var currToken = snapshot.child("registerKey").val();
             var pass = snapshot.child("password").val();
             if (currToken != token) {
-                res.status(401)
+                res.status(401).json({ message: "unknown user"});
+                return;
             } else {
                 set(ref(db, path), {
                     mail: mail,
+                    name: snapshot.child("name").val(),
                     password: pass,
                     registerKey: ""
                 });
-                res.status(200);
+                res.status(200).json({message: "Go back to login page (express.redirect isn't working we can't do anything about that)"}  );
+                return;
             }
         } else
-            res.status(401);
+            res.status(401).json({ message: "unknown user"});
+            return;
+    });
+});
+
+app.get("/user/resetPassword", (req, res) => {
+    var token = req.query.token;
+    var mail = req.query.mail;
+    var newPass = req.query.pass;
+    var path = "users/" + mail.replaceAll(".", "_");
+    if (mail === undefined || token === undefined || newPass === undefined) {
+        res.status(401).json({message: "Something is missing"});
+        return;
+    }
+    const dbRef = ref(getDatabase());
+    get(child(dbRef, path)).then((snapshot) => {
+        if (snapshot.exists() && snapshot.child("registerKey").val == token) {
+            set(ref(db, path), {
+                mail: mail,
+                registerKey: snapshot.child("registerKey").val(),
+                password: newPass,
+                name: snapshot.child("name").val(),
+                registerKey: ""
+            });
+            res.status(200).json({message: "ok"});
+        } else {
+            res.status(404).json({error: "unknown user"});
+            return;
+        }
     });
 });
 
