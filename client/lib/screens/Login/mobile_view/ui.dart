@@ -431,9 +431,7 @@ class _mobile_viewState extends State<mobile_view>
                 padding: const EdgeInsets.only(top: 10.0),
                 child: GestureDetector(
                   onTap: () => {
-                    googleController.login(context).then((value) {
-                      
-                    }),
+                    googleController.login(context),
                   },
                   child: Container(
                     padding: const EdgeInsets.all(15.0),
