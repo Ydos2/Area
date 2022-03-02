@@ -1,5 +1,6 @@
 // ignore_for_file: deprecated_member_use, library_prefixes, camel_case_types, unused_local_variable, use_function_type_syntax_for_parameters
 
+import 'package:area/screens/Login/mobile_view/google_login_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -9,6 +10,9 @@ import 'package:area/constants.dart';
 import 'package:area/screens/Login/mobile_view/input_checker.dart';
 
 import 'package:area/components/ActionsFetch.dart';
+import 'package:get/get.dart';
+
+import '../../home/home_screen.dart';
 
 class mobile_view extends StatefulWidget {
   const mobile_view({Key? key}) : super(key: key);
@@ -42,6 +46,7 @@ class _mobile_viewState extends State<mobile_view>
       TextEditingController();
 
   late PageController _pageController;
+  final googleController = Get.put(LoginController());
 
   Color left = Colors.black;
   Color right = Colors.white;
@@ -212,7 +217,6 @@ class _mobile_viewState extends State<mobile_view>
       ),
     );
   }
-  
 
   Widget _buildSignIn(BuildContext context) {
     return Container(
@@ -426,7 +430,9 @@ class _mobile_viewState extends State<mobile_view>
               Padding(
                 padding: const EdgeInsets.only(top: 10.0),
                 child: GestureDetector(
-                  onTap: () => showInSnackBar("Google button pressed"),
+                  onTap: () => {
+                    googleController.login(context),
+                  },
                   child: Container(
                     padding: const EdgeInsets.all(15.0),
                     decoration: const BoxDecoration(
@@ -651,12 +657,15 @@ class _mobile_viewState extends State<mobile_view>
                     ),
                     onPressed: () {
                       String? result;
-                      result = c.checkInfo(signupPasswordController.text, signupConfirmPasswordController.text, signupEmailController.text, signupNameController.text);
+                      result = c.checkInfo(
+                          signupPasswordController.text,
+                          signupConfirmPasswordController.text,
+                          signupEmailController.text,
+                          signupNameController.text);
                       if (result != null) {
                         showInSnackBar(result);
                       }
-                    }
-              ),
+                    }),
               ),
             ],
           ),
