@@ -5,6 +5,7 @@ import 'package:area/settings.dart';
 import 'package:area/constants.dart';
 import 'package:area/components/NavBar.dart';
 import 'package:area/components/ActionsFetch.dart';
+import 'package:area/components/Oauth2.dart';
 
 class DiscordState extends StatefulWidget {
   const DiscordState({Key? key}) : super(key: key);
@@ -34,7 +35,8 @@ class StatefulDiscord extends State<DiscordState> {
 
   void connectDiscord() {
     setState(() {
-      ActionsFetch().fetchConnectDiscord();
+      //ActionsFetch().fetchConnectDiscord();
+      oauthTest();
     });
   }
 
