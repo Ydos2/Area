@@ -1,3 +1,6 @@
+// ignore_for_file: prefer_const_constructors
+
+import 'package:area/screens/pages/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -66,6 +69,28 @@ class StatefulSettings extends State<SettingsState> {
                   });
                 },
               ),
+              const SizedBox(height: 30.0),
+              TextButton(
+                onPressed: () async {
+                  await Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => profilePage()),
+                  ).then((_) => setState(() {}));
+                },
+                child: Text("Modify you profile"),
+                style: TextButton.styleFrom(
+                  side: BorderSide(color: pc3, width: 1),
+                  primary: pf4,
+                  shape: const BeveledRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(5))),
+                  textStyle: TextStyle(
+                      color: pf3,
+                      fontSize: 20,
+                      fontFamily: "Raleway",
+                      fontWeight: FontWeight.w800),
+                  elevation: 5,
+                ),
+              )
             ],
           ),
         ),

@@ -1,3 +1,5 @@
+import 'package:area/components/user.dart';
+import 'package:area/components/user_pref.dart';
 import 'package:flutter/material.dart';
 import 'package:area/screens/home/home_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,8 +12,10 @@ import 'package:area/HomeRouterDelegate.dart';
 import 'package:area/HomeRouteInformationParser.dart';
 import 'package:area/locator.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   setupLocator();
+  await UserPreferences.init();
   runApp(const MyApp());
 }
 

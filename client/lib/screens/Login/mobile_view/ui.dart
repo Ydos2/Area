@@ -354,8 +354,6 @@ class _mobile_viewState extends State<mobile_view>
                     onPressed: () {
                       showInSnackBar("Login button pressed");
                       //ICI LOGIN
-                      print("email : " + loginEmailController.text);
-                      print("password : " + loginPasswordController.text);
                       Future<int> i = ActionsFetch().fetchLogin(
                           loginEmailController.text,
                           loginPasswordController.text,

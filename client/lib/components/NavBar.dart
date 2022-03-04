@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_returning_null_for_void, file_names, unnecessary_null_comparison, prefer_conditional_assignment
+// ignore_for_file: avoid_returning_null_for_void, file_names, unnecessary_null_comparison, prefer_conditional_assignment, unnecessary_cast
 
 import 'dart:io';
 
@@ -18,23 +18,13 @@ import 'package:area/screens/pages/mail/mail.dart';
 import 'package:area/screens/notifications/notifications.dart';
 import 'package:area/screens/Login/home_view.dart';
 import 'package:get/get.dart';
+import 'package:area/components/user_pref.dart';
 
 import '../screens/Login/mobile_view/google_login_controller.dart';
 
 class NavBar extends StatelessWidget {
   final googleController = Get.put(LoginController());
-  final userController = Get.put(UserController());
-
-  void initState() {
-    if (userController.username == null) {
-      userController.username = userController.email.split('@')[0];
-    } else {
-      userController.username = "default name";
-    }
-    if (userController.profilePic == null) {
-      userController.profilePic = "assets/images/pluto.svg";
-    }
-  }
+  final User user = UserPreferences.getUser();
 
   @override
   Widget build(BuildContext context) {
@@ -44,24 +34,21 @@ class NavBar extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           UserAccountsDrawerHeader(
-            accountName: Text(userController.username),
-            accountEmail: Text(userController.email),
+            accountName: Text(user.username),
+            accountEmail: Text(user.email),
             currentAccountPicture: CircleAvatar(
-              child: ClipOval(
-                child: Image.network(
-                  userController.profilePic,
-                  fit: BoxFit.cover,
-                  width: 90,
-                  height: 90,
-                ),
-              ),
+              backgroundImage: user.profilePic.contains('https://')
+                  ? NetworkImage(user.profilePic) as ImageProvider
+                  : FileImage(File(user.profilePic)) as ImageProvider,
             ),
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               color: Colors.blue,
               image: DecorationImage(
                   fit: BoxFit.fill,
-                  image: NetworkImage(
-                      'https://media.istockphoto.com/photos/colour-smoke-background-horror-halloween-mystery-magic-picture-id1059499980?k=20&m=1059499980&s=170667a&w=0&h=9kPwHbDoPWk5qA1P4Se6TYWMzt7sxcmMcwy6V_nV5pg=')),
+                  image: user.banner.contains('https://')
+                  ? NetworkImage(user.banner) as ImageProvider
+                  : FileImage(File(user.banner)) as ImageProvider,
+                  ),
             ),
           ),
           ListTile(
