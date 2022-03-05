@@ -13,39 +13,43 @@ class LoginController extends GetxController {
   User user = UserPreferences.getUser();
 
   login(context) async {
-    account.value = await _googleSignin.signIn().then(
-      (value) {
-        if (value != null) {
-          if (user.hasLoggedInBefore == false) {
-            user = user.copy(email: value.email);
-            user = user.copy(username: value.displayName);
-            value.photoUrl == null
-                ? user =
-                    user.copy(profilePic: UserPreferences.myUser.profilePic)
-                : user = user.copy(profilePic: value.photoUrl);
-            user = user.copy(hasLoggedInBefore: true);
-            user = user.copy(banner: UserPreferences.myUser.banner);
-            UserPreferences.setUser(user);
+    try {
+      account.value = await _googleSignin.signIn().then(
+        (value) {
+          if (value != null) {
+            if (user.hasLoggedInBefore == false) {
+              user = user.copy(email: value.email);
+              user = user.copy(username: value.displayName);
+              value.photoUrl == null
+                  ? user =
+                      user.copy(profilePic: UserPreferences.myUser.profilePic)
+                  : user = user.copy(profilePic: value.photoUrl);
+              user = user.copy(hasLoggedInBefore: true);
+              user = user.copy(banner: UserPreferences.myUser.banner);
+              UserPreferences.setUser(user);
+            }
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const HomeScreen()),
+            );
+          } else {
+            showDialog(
+                context: context,
+                // ignore: prefer_const_constructors
+                builder: (context) => const AlertDialog(
+                      title: Center(child: Text('Error')),
+                      titleTextStyle: TextStyle(
+                        fontFamily: "Raleway",
+                        fontSize: 20,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ));
           }
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const HomeScreen()),
-          );
-        } else {
-          showDialog(
-              context: context,
-              // ignore: prefer_const_constructors
-              builder: (context) => const AlertDialog(
-                    title: Center(child: Text('Error')),
-                    titleTextStyle: TextStyle(
-                      fontFamily: "Raleway",
-                      fontSize: 20,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ));
-        }
-      },
-    );
+        },
+      );
+    } catch (e) {
+      print(e);
+    }
   }
 
   logout() async {
