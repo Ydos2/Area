@@ -28,8 +28,17 @@ class StatefulSettings extends State<SettingsState> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Settings'),
-        backgroundColor: settings.dark_mode ? pf2 : pc3,
+        title: Text(
+          'Settings',
+          style: TextStyle(
+            fontFamily: "Raleway",
+            fontSize: 20,
+            fontWeight: FontWeight.w800,
+            color: settings.dark_mode ? pc1 : pf2,
+          ),
+        ),
+        backgroundColor: settings.dark_mode ? pf2 : pc2,
+        elevation: 0,
       ),
       drawer: NavBar(),
       backgroundColor: settings.dark_mode ? pf1 : pc1,
@@ -46,14 +55,16 @@ class StatefulSettings extends State<SettingsState> {
                 title: Text(
                   "Dark mode",
                   style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 20,
+                      fontFamily: "Raleway",
                       color: settings.dark_mode ? pc1 : pf1,
-                      fontWeight: FontWeight.bold),
+                      fontWeight: FontWeight.w800),
                 ),
                 subtitle: Text(
                   "" + _dark.toString(),
-                  style: const TextStyle(
-                    color: pc2,
+                  style: TextStyle(
+                    color: settings.dark_mode ? pc1 : pf1,
+                    fontFamily: "Raleway",
                   ),
                 ),
                 value: _dark,
@@ -70,25 +81,25 @@ class StatefulSettings extends State<SettingsState> {
                 },
               ),
               const SizedBox(height: 30.0),
-              TextButton(
-                onPressed: () async {
+              ListTile(
+                onTap: () async {
                   await Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => profilePage()),
                   ).then((_) => setState(() {}));
                 },
-                child: Text("Modify you profile"),
-                style: TextButton.styleFrom(
-                  side: BorderSide(color: pc3, width: 1),
-                  primary: pf4,
-                  shape: const BeveledRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(5))),
-                  textStyle: TextStyle(
-                      color: pf3,
-                      fontSize: 20,
-                      fontFamily: "Raleway",
-                      fontWeight: FontWeight.w800),
-                  elevation: 5,
+                leading: Text(
+                  "Modify Your Profile",
+                  style: TextStyle(
+                    fontFamily: "Raleway",
+                    fontWeight: FontWeight.w800,
+                    fontSize: 20,
+                    color: settings.dark_mode ? pc1 : pf1,
+                  ),
+                ),
+                trailing: Icon(
+                  Icons.edit,
+                  color: settings.dark_mode ? pc1 : pf1,
                 ),
               )
             ],

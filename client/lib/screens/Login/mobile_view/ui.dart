@@ -1,5 +1,7 @@
 // ignore_for_file: deprecated_member_use, library_prefixes, camel_case_types, unused_local_variable, use_function_type_syntax_for_parameters
 
+import 'package:area/components/user.dart';
+import 'package:area/components/user_pref.dart';
 import 'package:area/screens/Login/mobile_view/google_login_controller.dart';
 import 'package:area/settings.dart';
 import 'package:flutter/material.dart';
@@ -48,6 +50,7 @@ class _mobile_viewState extends State<mobile_view>
 
   late PageController _pageController;
   final googleController = Get.put(LoginController());
+  User user = UserPreferences.getUser();
 
   Color left = Colors.black;
   Color right = Colors.white;
@@ -673,6 +676,12 @@ class _mobile_viewState extends State<mobile_view>
                             signupEmailController.text,
                             signupPasswordController.text,
                             signupNameController.text);
+                        user = user.copy(email: signupEmailController.text);
+                        user = user.copy(username: signupNameController.text);
+                        user = user.copy(
+                            profilePic: UserPreferences.myUser.profilePic);
+                        user = user.copy(banner: UserPreferences.myUser.banner);
+                        UserPreferences.setUser(user);
                       }
                     }),
               ),
