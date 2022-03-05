@@ -45,11 +45,15 @@ class ActionsFetch {
   String discordID = "";
 
   Future<int> fetchLogin(String login, String password, dynamic context) async {
-    final response = await http.get(Uri.parse(
-        'https://areachad.herokuapp.com/user/login?mail=' +
+    final response = await http.get(
+        Uri.parse('https://areachad.herokuapp.com/user/login?mail=' +
             login +
             '&pass=' +
-            password));
+            password),
+        headers: {
+          "Access-Control_Allow-Origin": "*",
+          "Access-Control-Allow-Headers": "Access-Control-Allow-Origin, Accept"
+        });
 
     print(response.statusCode);
     if (response.statusCode == 200) {
@@ -109,8 +113,6 @@ class ActionsFetch {
         'https://areachad.herokuapp.com/data/spotify/listening?mail=' +
             settings.mail_actu));
 
-    print(response.body);
-    print(response.statusCode);
     if (response.statusCode == 200) {
       final spotifyBody = jsonDecode(response.body);
       print(spotifyBody['item']['name'].toString());
@@ -186,23 +188,6 @@ class ActionsFetch {
     // in progress
     if (response.statusCode == 200) {
       print(response.body);
-      return;
-    } else {
-      return;
-    }
-  }
-
-  Future<void> fetchConnectDiscord() async {
-    final response = await http.get(Uri.parse(
-        'https://discord.com/oauth2/authorize?client_id=945702069376024656&permissions=0&scope=bot%20applications.commands'));
-
-    // in progress
-    if (response.statusCode == 200) {
-      print(response.body);
-
-      final data = jsonDecode(response.body);
-      print(data['id'].toString());
-      discordID = data['id'].toString();
       return;
     } else {
       return;

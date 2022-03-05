@@ -15,6 +15,8 @@ import 'package:get/get.dart';
 
 import '../../home/home_screen.dart';
 
+import 'dart:developer';
+
 class mobile_view extends StatefulWidget {
   const mobile_view({Key? key}) : super(key: key);
 
@@ -354,6 +356,8 @@ class _mobile_viewState extends State<mobile_view>
                     ),
                     onPressed: () {
                       showInSnackBar("Login button pressed");
+                      print("!!!!!!!!!!!!!!!");
+                      log('!!!!!!!!!!!!!!');
                       //ICI LOGIN
                       settings.mail_actu = loginEmailController.text;
                       Future<int> i = ActionsFetch().fetchLogin(
