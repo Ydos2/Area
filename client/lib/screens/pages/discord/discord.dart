@@ -97,7 +97,7 @@ class StatefulDiscord extends State<DiscordState> {
                 onPressed: () {
                   _selectTime(context);
                 },
-                child: Text("Choose Time"),
+                child: const Text("Choose Time"),
               ),
               Text("${selectedTime.hour}:${selectedTime.minute}"),
               TextButton(
@@ -106,9 +106,9 @@ class StatefulDiscord extends State<DiscordState> {
                 ),
                 onPressed: () {
                   sendDiscord();
-                  showInSnackBar("Email send !");
+                  showInSnackBar("Message send !");
                 },
-                child: const Text('Send Email'),
+                child: const Text('Send message'),
               ),
               TextButton(
                 style: TextButton.styleFrom(

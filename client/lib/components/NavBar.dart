@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:area/screens/settings/settings_screen.dart';
 import 'package:area/screens/pages/discord/discord.dart';
 import 'package:area/screens/pages/spotify/spotify.dart';
+import 'package:area/screens/pages/spotify/tests.dart';
 import 'package:area/screens/pages/github/github.dart';
 import 'package:area/screens/pages/insta/insta.dart';
 import 'package:area/screens/pages/twitch/twitch.dart';
@@ -44,11 +45,11 @@ class NavBar extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.blue,
               image: DecorationImage(
-                  fit: BoxFit.fill,
-                  image: user.banner.contains('https://')
-                  ? NetworkImage(user.banner) as ImageProvider
-                  : FileImage(File(user.banner)) as ImageProvider,
-                  ),
+                fit: BoxFit.fill,
+                image: user.banner.contains('https://')
+                    ? NetworkImage(user.banner) as ImageProvider
+                    : FileImage(File(user.banner)) as ImageProvider,
+              ),
             ),
           ),
           ListTile(
@@ -161,7 +162,7 @@ class NavBar extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return InstagramState();
+                    return ExampleApp();
                   },
                 ),
               );

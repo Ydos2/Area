@@ -8,6 +8,10 @@ import 'package:area/constants.dart';
 import 'package:area/components/NavBar.dart';
 import 'package:area/components/ActionsFetch.dart';
 
+import 'package:audioplayers/audioplayers.dart';
+
+import 'player_widget.dart';
+
 class SpotifyState extends StatefulWidget {
   const SpotifyState({Key? key}) : super(key: key);
 
@@ -18,6 +22,8 @@ class SpotifyState extends StatefulWidget {
 class StatefulSpotify extends State<SpotifyState> {
   bool _dark = settings.dark_mode;
   late Future<Spotify> spotify;
+
+  AudioPlayer audioPlayer = AudioPlayer(mode: PlayerMode.LOW_LATENCY);
 
   @override
   void initState() {
@@ -31,6 +37,18 @@ class StatefulSpotify extends State<SpotifyState> {
     setState(() {
       spotify = ActionsFetch().fetchSpotify();
     });
+  }
+
+  void PlaySound() {
+    //AudioPlayer.logEnabled = true;
+  }
+
+  play() async {
+    int result = await audioPlayer.play(
+        "https://p.scdn.co/mp3-preview/580a867755d44019cdec0c4bb125feffa3f8ac29?cid=b6c81d792887470aba5bb1af1b3f2580");
+    if (result == 1) {
+      // success
+    }
   }
 
   @override
@@ -77,6 +95,7 @@ class StatefulSpotify extends State<SpotifyState> {
                                   '\nMusic by ' +
                                   snapshot.data!.artist),
                             ),
+                            PlayerWidget(url: snapshot.data!.preview),
                           ],
                         ),
                       );

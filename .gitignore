@@ -127,3 +127,5 @@ client/build/*
 /android/app/profile
 /android/app/release
 node_modules
+
+tests.dart
