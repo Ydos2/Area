@@ -6,6 +6,7 @@ import 'dart:io';
 import 'package:area/settings.dart';
 import 'package:area/constants.dart';
 import 'package:area/components/NavBar.dart';
+import 'package:area/components/ActionsFetch.dart';
 
 class SpotifyState extends StatefulWidget {
   const SpotifyState({Key? key}) : super(key: key);
@@ -16,12 +17,20 @@ class SpotifyState extends StatefulWidget {
 
 class StatefulSpotify extends State<SpotifyState> {
   bool _dark = settings.dark_mode;
+  late Future<Spotify> spotify;
 
   @override
   void initState() {
     super.initState();
     _dark = settings.dark_mode;
+    spotify = ActionsFetch().fetchSpotify();
     if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
+  }
+
+  void refreshSpotify() {
+    setState(() {
+      spotify = ActionsFetch().fetchSpotify();
+    });
   }
 
   @override
@@ -41,6 +50,49 @@ class StatefulSpotify extends State<SpotifyState> {
           padding: const EdgeInsets.all(32.0),
           child: Column(
             children: <Widget>[
+              FutureBuilder<Spotify>(
+                  future: spotify,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return Card(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: const <Widget>[
+                            ListTile(
+                              leading: Icon(Icons.album),
+                              title:
+                                  Text('Spotify not launch...\nMusic by ...'),
+                            ),
+                          ],
+                        ),
+                      );
+                    } else if (snapshot.hasData) {
+                      return Card(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            ListTile(
+                              leading: Icon(Icons.album),
+                              title: Text(snapshot.data!.music +
+                                  '\nMusic by ' +
+                                  snapshot.data!.artist),
+                            ),
+                          ],
+                        ),
+                      );
+                    }
+
+                    return const CircularProgressIndicator();
+                  }),
+              TextButton(
+                style: TextButton.styleFrom(
+                  textStyle: const TextStyle(fontSize: 20),
+                ),
+                onPressed: () {
+                  refreshSpotify();
+                },
+                child: const Text('Refresh spotify music'),
+              ),
               TextButton(
                 style: TextButton.styleFrom(
                   textStyle: const TextStyle(fontSize: 20),
@@ -49,11 +101,10 @@ class StatefulSpotify extends State<SpotifyState> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        // ICCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCI
-                        builder: (context) => const WebView(
+                        builder: (context) => WebView(
                               initialUrl:
-                                  "https://areachad.herokuapp.com/spotify/login?" +
-                                      "LESSS GO TU PEUT METTRE LE MAIL DE L'USER STP",
+                                  "https://areachad.herokuapp.com/spotify/login?mail=" +
+                                      settings.mail_actu,
                               javascriptMode: JavascriptMode.unrestricted,
                             )),
                   );

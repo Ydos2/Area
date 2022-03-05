@@ -1,3 +1,4 @@
+import 'package:area/settings.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -27,6 +28,16 @@ class Joke {
   const Joke({
     required this.setup,
     required this.punchline,
+  });
+}
+
+class Spotify {
+  final String music;
+  final String artist;
+
+  const Spotify({
+    required this.music,
+    required this.artist,
   });
 }
 
@@ -90,6 +101,29 @@ class ActionsFetch {
       return 0;
     } else {
       return 1;
+    }
+  }
+
+  Future<Spotify> fetchSpotify() async {
+    final response = await http.get(Uri.parse(
+        'https://areachad.herokuapp.com/data/spotify/listening?mail=' +
+            settings.mail_actu));
+
+    print(response.body);
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      final spotifyBody = jsonDecode(response.body);
+      print(spotifyBody['item']['name'].toString());
+      print(spotifyBody['item']['artists'][0]['name'].toString());
+      var spotify = Spotify(
+          music: spotifyBody['item']['name'].toString(),
+          artist: spotifyBody['item']['artists'][0]['name'].toString());
+
+      return spotify;
+    } else {
+      const spotify = Spotify(music: "", artist: "");
+
+      return spotify;
     }
   }
 

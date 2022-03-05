@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use, library_prefixes, camel_case_types, unused_local_variable, use_function_type_syntax_for_parameters
 
 import 'package:area/screens/Login/mobile_view/google_login_controller.dart';
+import 'package:area/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -354,6 +355,7 @@ class _mobile_viewState extends State<mobile_view>
                     onPressed: () {
                       showInSnackBar("Login button pressed");
                       //ICI LOGIN
+                      settings.mail_actu = loginEmailController.text;
                       Future<int> i = ActionsFetch().fetchLogin(
                           loginEmailController.text,
                           loginPasswordController.text,
