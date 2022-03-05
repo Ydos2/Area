@@ -19,7 +19,10 @@ class LoginController extends GetxController {
           if (user.hasLoggedInBefore == false) {
             user = user.copy(email: value.email);
             user = user.copy(username: value.displayName);
-            user = user.copy(profilePic: value.photoUrl);
+            value.photoUrl == null
+                ? user =
+                    user.copy(profilePic: UserPreferences.myUser.profilePic)
+                : user = user.copy(profilePic: value.photoUrl);
             user = user.copy(hasLoggedInBefore: true);
             user = user.copy(banner: UserPreferences.myUser.banner);
             UserPreferences.setUser(user);
