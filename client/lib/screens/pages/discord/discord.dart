@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:webview_flutter/webview_flutter.dart';
+import 'dart:io';
 
 import 'package:area/settings.dart';
 import 'package:area/constants.dart';
@@ -73,9 +75,22 @@ class StatefulDiscord extends State<DiscordState> {
               TextField(
                 obscureText: false,
                 controller: messageController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
+                style: TextStyle(
+                  fontFamily: "Raleway",
+                  color: settings.dark_mode ? pc1 : pf1,
+                ),
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: settings.dark_mode ? pc2 : pc3,
+                    ),
+                  ),
                   labelText: 'message',
+                  labelStyle: TextStyle(
+                    fontFamily: "Raleway",
+                    fontSize: 19,
+                    color: settings.dark_mode ? pc1 : pf1,
+                  ),
                 ),
               ),
               ElevatedButton(
@@ -100,7 +115,16 @@ class StatefulDiscord extends State<DiscordState> {
                   textStyle: const TextStyle(fontSize: 20),
                 ),
                 onPressed: () {
-                  connectDiscord();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => WebView(
+                              initialUrl:
+                                  "https://areachad.herokuapp.com/discord/login?mail=" +
+                                      settings.mail_actu,
+                              javascriptMode: JavascriptMode.unrestricted,
+                            )),
+                  );
                   showInSnackBar("Discord is connected !");
                 },
                 child: const Text('Connect to discord'),

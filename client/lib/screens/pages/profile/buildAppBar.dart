@@ -6,6 +6,6 @@ AppBar buildAppBar(BuildContext context) {
   return AppBar(
     leading: const BackButton(),
     elevation: 0,
-    backgroundColor: settings.dark_mode ? pf2 : pc3,
+    backgroundColor: settings.dark_mode ? pf2 : pc2,
   );
 }

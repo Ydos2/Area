@@ -1,3 +1,4 @@
+import 'package:area/settings.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -30,15 +31,29 @@ class Joke {
   });
 }
 
+class Spotify {
+  final String music;
+  final String artist;
+
+  const Spotify({
+    required this.music,
+    required this.artist,
+  });
+}
+
 class ActionsFetch {
   String discordID = "";
 
   Future<int> fetchLogin(String login, String password, dynamic context) async {
-    final response = await http.get(Uri.parse(
-        'https://areachad.herokuapp.com/user/login?mail=' +
+    final response = await http.get(
+        Uri.parse('https://areachad.herokuapp.com/user/login?mail=' +
             login +
             '&pass=' +
-            password));
+            password),
+        headers: {
+          "Access-Control_Allow-Origin": "*",
+          "Access-Control-Allow-Headers": "Access-Control-Allow-Origin, Accept"
+        });
 
     print(response.statusCode);
     if (response.statusCode == 200) {
@@ -90,6 +105,27 @@ class ActionsFetch {
       return 0;
     } else {
       return 1;
+    }
+  }
+
+  Future<Spotify> fetchSpotify() async {
+    final response = await http.get(Uri.parse(
+        'https://areachad.herokuapp.com/data/spotify/listening?mail=' +
+            settings.mail_actu));
+
+    if (response.statusCode == 200) {
+      final spotifyBody = jsonDecode(response.body);
+      print(spotifyBody['item']['name'].toString());
+      print(spotifyBody['item']['artists'][0]['name'].toString());
+      var spotify = Spotify(
+          music: spotifyBody['item']['name'].toString(),
+          artist: spotifyBody['item']['artists'][0]['name'].toString());
+
+      return spotify;
+    } else {
+      const spotify = Spotify(music: "", artist: "");
+
+      return spotify;
     }
   }
 
@@ -152,23 +188,6 @@ class ActionsFetch {
     // in progress
     if (response.statusCode == 200) {
       print(response.body);
-      return;
-    } else {
-      return;
-    }
-  }
-
-  Future<void> fetchConnectDiscord() async {
-    final response = await http.get(Uri.parse(
-        'https://discord.com/oauth2/authorize?client_id=945702069376024656&permissions=0&scope=bot%20applications.commands'));
-
-    // in progress
-    if (response.statusCode == 200) {
-      print(response.body);
-
-      final data = jsonDecode(response.body);
-      print(data['id'].toString());
-      discordID = data['id'].toString();
       return;
     } else {
       return;

@@ -10,7 +10,7 @@ If you want to maintain the code, there is a simple documentation made with dart
 You can regen the documentation with `dartdoc` command, if you dont have it use `pub global activate dartdoc` at the root of the repository <br/>
 
 To build project on github.io :
-flutter build web
+flutter build web --web-renderer html
 cd build/web
 git add *
 git commit -m ""

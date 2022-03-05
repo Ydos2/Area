@@ -68,32 +68,71 @@ class StatefulMail extends State<MailState> {
               TextField(
                 obscureText: false,
                 controller: mailController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
+                style: TextStyle(
+                  fontFamily: "Raleway",
+                  color: settings.dark_mode ? pc1 : pf1,
+                ),
+                decoration: InputDecoration(
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: settings.dark_mode ? pc2 : pc3,
+                    ),
+                  ),
                   labelText: 'mail',
+                  labelStyle: TextStyle(
+                    fontFamily: "Raleway",
+                    fontSize: 19,
+                    color: settings.dark_mode ? pc1 : pf1,
+                  ),
                 ),
               ),
               TextField(
                 obscureText: false,
                 controller: contentController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
+                style: TextStyle(
+                  fontFamily: "Raleway",
+                  color: settings.dark_mode ? pc1 : pf1,
+                ),
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: settings.dark_mode ? pc2 : pc3,
+                    ),
+                  ),
                   labelText: 'content',
+                  labelStyle: TextStyle(
+                    fontFamily: "Raleway",
+                    fontSize: 19,
+                    color: settings.dark_mode ? pc1 : pf1,
+                  ),
                 ),
               ),
               TextField(
                 obscureText: false,
                 controller: objectController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
+                style: TextStyle(
+                  fontFamily: "Raleway",
+                  color: settings.dark_mode ? pc1 : pf1,
+                ),
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: settings.dark_mode ? pc2 : pc3,
+                    ),
+                  ),
                   labelText: 'object',
+                  labelStyle: TextStyle(
+                    fontFamily: "Raleway",
+                    fontSize: 19,
+                    color: settings.dark_mode ? pc1 : pf1,
+                  ),
                 ),
               ),
               ElevatedButton(
                 onPressed: () {
                   _selectTime(context);
                 },
-                child: Text("Choose Time"),
+                child: const Text("Choose Time"),
               ),
               Text("${selectedTime.hour}:${selectedTime.minute}"),
               TextButton(
