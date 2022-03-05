@@ -39,23 +39,18 @@ class StatefulSpotify extends State<SpotifyState> {
     });
   }
 
-  void PlaySound() {
-    //AudioPlayer.logEnabled = true;
-  }
-
-  play() async {
-    int result = await audioPlayer.play(
-        "https://p.scdn.co/mp3-preview/580a867755d44019cdec0c4bb125feffa3f8ac29?cid=b6c81d792887470aba5bb1af1b3f2580");
-    if (result == 1) {
-      // success
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Spotify'),
+        title: const Text(
+          'Spotify',
+          style: TextStyle(
+            fontFamily: "Raleway",
+            fontSize: 20,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
         backgroundColor: settings.dark_mode ? pf2 : pc3,
       ),
       drawer: NavBar(),

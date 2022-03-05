@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'dart:io';
 
 import 'package:area/settings.dart';
@@ -22,10 +23,36 @@ class StatefulDiscord extends State<DiscordState> {
 
   TextEditingController messageController = TextEditingController();
 
+  late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+
   @override
   void initState() {
     super.initState();
     _dark = settings.dark_mode;
+    flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+    var android = const AndroidInitializationSettings('app_icon');
+    var iOS = const IOSInitializationSettings();
+    var initSetttings = InitializationSettings(android: android, iOS: iOS);
+    flutterLocalNotificationsPlugin.initialize(initSetttings,
+        onSelectNotification: onSelectNotification);
+  }
+
+  void onSelectNotification(String? payload) {
+    debugPrint("payload : $payload");
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: const Text('Notification'),
+        content: Text('$payload'),
+      ),
+    );
+  }
+
+  void setNewNotification(String title, String text) {
+    showNotification(0, title, text);
+    settings.titles.add(title);
+    settings.subtitles.add(text);
+    settings.icon.add(Icons.discord);
   }
 
   void sendDiscord() {
@@ -33,6 +60,15 @@ class StatefulDiscord extends State<DiscordState> {
       ActionsFetch().fetchDiscord(messageController.text,
           "${selectedTime.hour}:${selectedTime.minute}");
     });
+  }
+
+  showNotification(int id, String title, String text) async {
+    var android = const AndroidNotificationDetails('channel id', 'channel NAME',
+        priority: Priority.high, importance: Importance.max);
+    var iOS = const IOSNotificationDetails();
+    var platform = NotificationDetails(android: android, iOS: iOS);
+    await flutterLocalNotificationsPlugin.show(id, title, text, platform,
+        payload: 'AndroidCoding.in');
   }
 
   void connectDiscord() {
@@ -59,7 +95,14 @@ class StatefulDiscord extends State<DiscordState> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Discord'),
+        title: const Text(
+          'Discord',
+          style: TextStyle(
+            fontFamily: "Raleway",
+            fontSize: 20,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
         backgroundColor: settings.dark_mode ? pf2 : pc3,
       ),
       drawer: NavBar(),
@@ -106,7 +149,9 @@ class StatefulDiscord extends State<DiscordState> {
                 ),
                 onPressed: () {
                   sendDiscord();
-                  showInSnackBar("Message send !");
+                  //showInSnackBar("Message send !");
+                  print("???????????????");
+                  setNewNotification("Discord", "Message send !");
                 },
                 child: const Text('Send message'),
               ),
