@@ -73,9 +73,22 @@ class StatefulDiscord extends State<DiscordState> {
               TextField(
                 obscureText: false,
                 controller: messageController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
+                style: TextStyle(
+                  fontFamily: "Raleway",
+                  color: settings.dark_mode ? pc1 : pf1,
+                ),
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: settings.dark_mode ? pc2 : pc3,
+                    ),
+                  ),
                   labelText: 'message',
+                  labelStyle: TextStyle(
+                    fontFamily: "Raleway",
+                    fontSize: 19,
+                    color: settings.dark_mode ? pc1 : pf1,
+                  ),
                 ),
               ),
               ElevatedButton(

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:area/screens/pages/profile/type.dart';
 
 class ProfileWidget extends StatelessWidget {
   final String imagePath;
@@ -20,20 +21,29 @@ class ProfileWidget extends StatelessWidget {
 
     return Center(
       child: Stack(
+        clipBehavior: Clip.none,
         children: [
-          buildBanner(),
-          buildImage(),
+          buildBanner(context),
           Positioned(
-            bottom: 0,
-            right: 4,
-            child: buildEditIcon(color),
+            top: 70,
+            right: MediaQuery.of(context).size.width / 3,
+            child: buildImage(context),
+          ),
+          Positioned(
+            top: 160,
+            right: MediaQuery.of(context).size.width / 3,
+            child: buildEditIcon(color, useless.type),
+          ),
+          Positioned(
+            right: 0,
+            child: buildEditIcon(color, useless.type),
           ),
         ],
       ),
     );
   }
 
-  Widget buildImage() {
+  Widget buildImage(BuildContext context) {
     final image = imagePath.contains('https://')
         ? NetworkImage(imagePath)
         : FileImage(File(imagePath));
@@ -46,38 +56,53 @@ class ProfileWidget extends StatelessWidget {
           fit: BoxFit.cover,
           width: 128,
           height: 128,
-          child: InkWell(onTap: onClicked),
+          child: InkWell(
+            onTap: () {
+              useless.type = "Image";
+              onClicked();
+            },
+          ),
         ),
       ),
     );
   }
 
-  Widget buildBanner() {
+  Widget buildBanner(BuildContext context) {
     final banner = bannerPath.contains('https://')
         ? NetworkImage(bannerPath)
         : FileImage(File(bannerPath));
 
     return Material(
-        color: Colors.transparent,
-        child: Ink.image(
-          image: banner as ImageProvider,
-          fit: BoxFit.cover,
-          width: 128,
-          height: 128,
+      color: Colors.transparent,
+      child: Ink.image(
+        image: banner as ImageProvider,
+        child: InkWell(
+          onTap: () {
+            useless.type = "Banner";
+            onClicked();
+          },
         ),
+        fit: BoxFit.cover,
+        width: MediaQuery.of(context).size.width - 5,
+        height: 180,
+      ),
     );
   }
 
-  Widget buildEditIcon(Color color) => buildCircle(
+  Widget buildEditIcon(Color color, String type) => buildCircle(
         color: Colors.white,
-        all: 3,
+        all: 2,
         child: buildCircle(
           color: color,
-          all: 8,
-          child: const Icon(
-            Icons.edit,
+          all: 0,
+          child: IconButton(
+            onPressed: () {
+              useless.type = type;
+              onClicked();
+            },
+            icon: const Icon(Icons.camera_alt_outlined),
             color: Colors.white,
-            size: 20,
+            iconSize: 20,
           ),
         ),
       );
