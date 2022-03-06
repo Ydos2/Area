@@ -75,7 +75,6 @@ class StatefulDiscord extends State<DiscordState> {
 
   void connectDiscord() {
     setState(() {
-      //ActionsFetch().fetchConnectDiscord();
       oauthTest();
     });
   }

@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'package:area/settings.dart';
 import 'package:area/constants.dart';
 import 'package:area/components/NavBar.dart';
+import 'package:area/components/ActionsFetch.dart';
 
-class TwitchState extends StatefulWidget {
-  const TwitchState({Key? key}) : super(key: key);
+class RedditState extends StatefulWidget {
+  const RedditState({Key? key}) : super(key: key);
 
   @override
-  State<TwitchState> createState() => StatefulTwitch();
+  State<RedditState> createState() => StatefulReddit();
 }
 
-class StatefulTwitch extends State<TwitchState> {
+class StatefulReddit extends State<RedditState> {
   bool _dark = settings.dark_mode;
 
   @override
@@ -26,7 +28,7 @@ class StatefulTwitch extends State<TwitchState> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Twitch',
+          'Reddit',
           style: TextStyle(
             fontFamily: "Raleway",
             fontSize: 20,
@@ -44,10 +46,32 @@ class StatefulTwitch extends State<TwitchState> {
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(32.0),
           child: Column(
-            children: <Widget>[],
+            children: <Widget>[
+              TextButton(
+                style: TextButton.styleFrom(
+                  textStyle: const TextStyle(fontSize: 20),
+                ),
+                onPressed: () {
+                  _launchInBrowser(
+                      "https://areachad.herokuapp.com/reddit/login?mail=" +
+                          settings.mail_actu);
+                },
+                child: const Text('Connect to spotify'),
+              ),],
           ),
         ),
       ),
     );
+  }
+
+  Future<void> _launchInBrowser(String url) async {
+    if (!await launch(
+      url,
+      forceSafariVC: false,
+      forceWebView: false,
+      headers: <String, String>{'my_header_key': 'my_header_value'},
+    )) {
+      throw 'Could not launch $url';
+    }
   }
 }
