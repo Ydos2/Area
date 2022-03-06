@@ -24,7 +24,7 @@ RUN flutter config --enable-web
 # Copy files to container and build
 WORKDIR /root
 COPY . .
-RUN flutter build web
+RUN flutter build web --web-renderer html --release
 
 # Stage 2 - Create the run-time image
 FROM nginx

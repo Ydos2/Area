@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
+import 'package:area/settings.dart';
+import 'package:area/constants.dart';
+
 class NotifState extends StatefulWidget {
   const NotifState({Key? key}) : super(key: key);
 
@@ -11,53 +14,55 @@ class NotifState extends StatefulWidget {
 class StatefulNotif extends State<NotifState> {
   late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
-  @override
-  void initState() {
-    super.initState();
-    flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-    var android = const AndroidInitializationSettings('app_icon');
-    var iOS = const IOSInitializationSettings();
-    var initSetttings = InitializationSettings(android: android, iOS: iOS);
-    flutterLocalNotificationsPlugin.initialize(initSetttings,
-        onSelectNotification: onSelectNotification);
-  }
-
-  void onSelectNotification(String? payload) {
-    debugPrint("payload : $payload");
-    showDialog(
-      context: context,
-      builder: (_) => AlertDialog(
-        title: const Text('Notification'),
-        content: Text('$payload'),
-      ),
-    );
-  }
+  int _index = settings.titles.length;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Flutter Local Notification'),
-      ),
-      body: Center(
-        child: RaisedButton(
-          onPressed: showNotification,
-          child: Text(
-            'Tap To Get a Notification',
-            style: Theme.of(context).textTheme.headline1,
+        title: const Text(
+          'Notification',
+          style: TextStyle(
+            fontFamily: "Raleway",
+            fontSize: 20,
+            fontWeight: FontWeight.w800,
           ),
         ),
+        backgroundColor: settings.dark_mode ? pf2 : pc3,
+      ),
+      backgroundColor: settings.dark_mode ? pf1 : pc1,
+      body: Center(
+        child: _index == 0
+            ? Text(
+                "No new notification...",
+                style: TextStyle(
+                  fontFamily: "Raleway",
+                  fontSize: 20,
+                  fontWeight: FontWeight.w800,
+                  color: settings.dark_mode ? pc1 : pf2,
+                ),
+              )
+            : ListView.builder(
+                itemCount: _index,
+                itemBuilder: (context, index) {
+                  return Card(
+                      child: ListTile(
+                          title: Text(settings.titles[index]),
+                          subtitle: Text(settings.subtitles[index]),
+                          leading: Icon(settings.icon[index]),
+                          trailing: IconButton(
+                            icon: const Icon(Icons.delete),
+                            onPressed: () {
+                              setState(() {
+                                settings.titles.removeAt(index);
+                                settings.subtitles.removeAt(index);
+                                settings.icon.removeAt(index);
+                                _index = settings.titles.length;
+                              });
+                            },
+                          )));
+                }),
       ),
     );
-  }
-
-  showNotification() async {
-    var android = const AndroidNotificationDetails('channel id', 'channel NAME',
-        priority: Priority.high, importance: Importance.max);
-    var iOS = const IOSNotificationDetails();
-    var platform = NotificationDetails(android: android, iOS: iOS);
-    await flutterLocalNotificationsPlugin.show(
-        0, 'New Tutorial', 'Local Notification', platform,
-        payload: 'AndroidCoding.in');
   }
 }

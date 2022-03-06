@@ -45,7 +45,7 @@ analysis_benchmark.json
 .packages.generated
 
 # Flutter/Dart/Pub related
-**/doc/api/
+#**/doc/api/
 .dart_tool/
 .flutter-plugins
 .flutter-plugins-dependencies
@@ -127,3 +127,5 @@ client/build/*
 /android/app/profile
 /android/app/release
 node_modules
+
+tests.dart
