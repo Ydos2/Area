@@ -54,6 +54,7 @@ dependencies:
   audioplayers: ^0.20.1
   provider: ^6.0.2
   dartdoc: ^5.0.1
+  url_launcher: ^6.0.20
 
 dev_dependencies:
   flutter_test:

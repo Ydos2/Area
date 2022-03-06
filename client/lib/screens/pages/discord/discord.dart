@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'dart:io';
+//import 'dart:js' as js;
+import 'package:url_launcher/url_launcher.dart';
 
 import 'package:area/settings.dart';
 import 'package:area/constants.dart';
@@ -157,30 +160,47 @@ class StatefulDiscord extends State<DiscordState> {
                 },
                 child: const Text('Send message'),
               ),
-              TextButton(
-                style: TextButton.styleFrom(
-                  textStyle: const TextStyle(fontSize: 20),
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => WebView(
-                              initialUrl:
-                                  "https://areachad.herokuapp.com/discord/login?mail=" +
-                                      settings.mail_actu,
-                              javascriptMode: JavascriptMode.unrestricted,
-                            )),
-                  );
-                  showInSnackBar("Discord is connected !");
-                },
-                child: const Text('Connect to discord'),
-              ),
+              ScreenTypeLayout(
+                  mobile: TextButton(
+                    style: TextButton.styleFrom(
+                      textStyle: const TextStyle(fontSize: 20),
+                    ),
+                    onPressed: () {
+                      _launchInBrowser(
+                          "https://areachad.herokuapp.com/discord/login?mail=" +
+                              settings.mail_actu);
+                      showInSnackBar("Discord is connected !");
+                    },
+                    child: const Text('Connect to discord'),
+                  ),
+                  desktop: TextButton(
+                    style: TextButton.styleFrom(
+                      textStyle: const TextStyle(fontSize: 20),
+                    ),
+                    onPressed: () {
+                      _launchInBrowser(
+                          "https://areachad.herokuapp.com/discord/login?mail=" +
+                              settings.mail_actu);
+                      showInSnackBar("Discord is connected !");
+                    },
+                    child: const Text('Connect to discord'),
+                  )),
             ],
           ),
         ),
       ),
     );
+  }
+
+  Future<void> _launchInBrowser(String url) async {
+    if (!await launch(
+      url,
+      forceSafariVC: false,
+      forceWebView: false,
+      headers: <String, String>{'my_header_key': 'my_header_value'},
+    )) {
+      throw 'Could not launch $url';
+    }
   }
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
