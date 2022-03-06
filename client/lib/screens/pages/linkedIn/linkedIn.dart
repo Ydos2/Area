@@ -5,14 +5,14 @@ import 'package:area/settings.dart';
 import 'package:area/constants.dart';
 import 'package:area/components/NavBar.dart';
 
-class GithubState extends StatefulWidget {
-  const GithubState({Key? key}) : super(key: key);
+class LinkedInState extends StatefulWidget {
+  const LinkedInState({Key? key}) : super(key: key);
 
   @override
-  State<GithubState> createState() => StatefulGithub();
+  State<LinkedInState> createState() => StatefulLinkedIn();
 }
 
-class StatefulGithub extends State<GithubState> {
+class StatefulLinkedIn extends State<LinkedInState> {
   bool _dark = settings.dark_mode;
 
   @override
@@ -26,7 +26,7 @@ class StatefulGithub extends State<GithubState> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Github',
+          'LinkedIn',
           style: TextStyle(
             fontFamily: "Raleway",
             fontSize: 20,
