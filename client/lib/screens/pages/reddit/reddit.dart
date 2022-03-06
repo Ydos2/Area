@@ -87,7 +87,12 @@ class StatefulReddit extends State<RedditState> {
                       "https://areachad.herokuapp.com/reddit/login?mail=" +
                           settings.mail_actu);
                 },
-                child: const Text('Connect to spotify'),
+                child: const Text('Connect to Reddit',
+                  style: TextStyle(
+                    fontFamily: "Raleway",
+                    fontSize: 20,
+                    fontWeight: FontWeight.w800,
+                  ),),
               ),
             ],
           ),
