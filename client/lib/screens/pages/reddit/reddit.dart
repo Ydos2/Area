@@ -47,6 +47,37 @@ class StatefulReddit extends State<RedditState> {
           padding: const EdgeInsets.all(32.0),
           child: Column(
             children: <Widget>[
+              SwitchListTile(
+                title: Text(
+                  "Ping new post ?",
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontFamily: "Raleway",
+                      color: settings.dark_mode ? pc1 : pf1,
+                      fontWeight: FontWeight.w800),
+                ),
+                subtitle: Text(
+                  "" + settings.newsReddit.toString(),
+                  style: TextStyle(
+                    color: settings.dark_mode ? pc1 : pf1,
+                    fontFamily: "Raleway",
+                  ),
+                ),
+                value: settings.newsReddit,
+                onChanged: (val) {
+                  if (settings.newsReddit == false) {
+                    settings.newsReddit = true;
+                  } else {
+                    settings.newsReddit = false;
+                  }
+                  settings.applyChangeNews();
+                  setState(() {
+                    ActionsFetch().fetchNewsReddit(settings.mail_actu, settings.newsReddit);
+                    settings.newsReddit = settings.newsReddit;
+                  });
+                },
+              ),
+              const SizedBox(height: 30.0),
               TextButton(
                 style: TextButton.styleFrom(
                   textStyle: const TextStyle(fontSize: 20),
@@ -57,7 +88,8 @@ class StatefulReddit extends State<RedditState> {
                           settings.mail_actu);
                 },
                 child: const Text('Connect to spotify'),
-              ),],
+              ),
+            ],
           ),
         ),
       ),

@@ -31,6 +31,16 @@ class Joke {
   });
 }
 
+class Zelda {
+  final String name;
+  final String description;
+
+  const Zelda({
+    required this.name,
+    required this.description,
+  });
+}
+
 class Spotify {
   final String music;
   final String artist;
@@ -177,6 +187,27 @@ class ActionsFetch {
     }
   }
 
+  Future<Zelda> fetchZelda(String name) async {
+    final response = await http.get(Uri.parse(
+        'https://areachad.herokuapp.com/data/zelda/getitem?name=' + name));
+
+    if (response.statusCode == 200) {
+      print(response.body);
+
+      final data = jsonDecode(response.body);
+      final zelda = Zelda(
+          name: data['name'].toString(),
+          description: data['description'].toString());
+
+      return zelda;
+    } else {
+      const zelda = Zelda(
+          name: "", description: "");
+
+      return zelda;
+    }
+  }
+
   Future<void> fetchEmail(
       String mail, String content, String object, String time) async {
     final response = await http.get(Uri.parse(
@@ -188,6 +219,23 @@ class ActionsFetch {
             object +
             '&time=' +
             time));
+
+    // in progress
+    if (response.statusCode == 200) {
+      print(response.body);
+      return;
+    } else {
+      return;
+    }
+  }
+
+  Future<void> fetchNewsReddit(
+      String mail, bool state) async {
+    final response = await http.get(Uri.parse(
+        'https://areachad.herokuapp.com/area/reddit/pingnewpost?mail=' +
+            mail +
+            '&state=' +
+            state.toString()));
 
     // in progress
     if (response.statusCode == 200) {

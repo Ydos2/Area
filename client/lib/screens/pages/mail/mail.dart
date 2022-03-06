@@ -129,6 +129,7 @@ class StatefulMail extends State<MailState> {
                   ),
                 ),
               ),
+              const SizedBox(height: 30.0),
               TextField(
                 obscureText: false,
                 controller: contentController,
@@ -150,6 +151,7 @@ class StatefulMail extends State<MailState> {
                   ),
                 ),
               ),
+              const SizedBox(height: 30.0),
               TextField(
                 obscureText: false,
                 controller: objectController,
@@ -171,16 +173,34 @@ class StatefulMail extends State<MailState> {
                   ),
                 ),
               ),
+              const SizedBox(height: 30.0),
               ElevatedButton(
                 onPressed: () {
                   _selectTime(context);
                 },
-                child: const Text("Choose Time"),
+                child: const Text("Choose Time",
+                  style: TextStyle(
+                    fontFamily: "Raleway",
+                    fontSize: 18,
+                    fontWeight: FontWeight.w800,
+                  ),),
               ),
-              Text("${selectedTime.hour}:${selectedTime.minute}"),
+              const SizedBox(height: 10.0),
+              Text("${selectedTime.hour}:${selectedTime.minute}",
+          style: TextStyle(
+            fontFamily: "Raleway",
+            fontSize: 18,
+            color: settings.dark_mode ? pc3 : pf2,
+            fontWeight: FontWeight.w800,
+          ),),
+              const SizedBox(height: 30.0),
               TextButton(
                 style: TextButton.styleFrom(
-                  textStyle: const TextStyle(fontSize: 20),
+                  textStyle: const TextStyle(
+            fontFamily: "Raleway",
+            fontSize: 20,
+            fontWeight: FontWeight.w800,
+          ),
                 ),
                 onPressed: () {
                   sendEmail();

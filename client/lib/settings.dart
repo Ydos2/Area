@@ -5,6 +5,7 @@ Settings settings = Settings();
 
 class Settings {
   bool dark_mode = false;
+  bool newsReddit = false;
   String mail_actu = "";
 
   final titles = [];
@@ -15,5 +16,11 @@ class Settings {
     final prefs = await SharedPreferences.getInstance();
 
     prefs.setBool('darkMode', this.dark_mode);
+  }
+
+  Future applyChangeNews() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    prefs.setBool('newsReddit', this.newsReddit);
   }
 }
