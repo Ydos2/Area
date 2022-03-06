@@ -8,6 +8,10 @@ import 'package:area/constants.dart';
 import 'package:area/components/NavBar.dart';
 import 'package:area/components/ActionsFetch.dart';
 
+import 'package:audioplayers/audioplayers.dart';
+
+import 'player_widget.dart';
+
 class SpotifyState extends StatefulWidget {
   const SpotifyState({Key? key}) : super(key: key);
 
@@ -18,6 +22,8 @@ class SpotifyState extends StatefulWidget {
 class StatefulSpotify extends State<SpotifyState> {
   bool _dark = settings.dark_mode;
   late Future<Spotify> spotify;
+
+  AudioPlayer audioPlayer = AudioPlayer(mode: PlayerMode.LOW_LATENCY);
 
   @override
   void initState() {
@@ -37,7 +43,14 @@ class StatefulSpotify extends State<SpotifyState> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Spotify'),
+        title: const Text(
+          'Spotify',
+          style: TextStyle(
+            fontFamily: "Raleway",
+            fontSize: 20,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
         backgroundColor: settings.dark_mode ? pf2 : pc3,
       ),
       drawer: NavBar(),
@@ -77,6 +90,7 @@ class StatefulSpotify extends State<SpotifyState> {
                                   '\nMusic by ' +
                                   snapshot.data!.artist),
                             ),
+                            PlayerWidget(url: snapshot.data!.preview),
                           ],
                         ),
                       );

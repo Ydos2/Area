@@ -5,13 +5,15 @@ import 'dart:io';
 import 'package:area/components/user.dart';
 import 'package:area/components/Oauth2.dart';
 import 'package:area/screens/home/home_screen.dart';
+import 'package:area/settings.dart';
 import 'package:flutter/material.dart';
 
 import 'package:area/screens/settings/settings_screen.dart';
 import 'package:area/screens/pages/discord/discord.dart';
 import 'package:area/screens/pages/spotify/spotify.dart';
+import 'package:area/screens/pages/spotify/tests.dart';
 import 'package:area/screens/pages/github/github.dart';
-import 'package:area/screens/pages/insta/insta.dart';
+import 'package:area/screens/pages/facebook/facebook.dart';
 import 'package:area/screens/pages/twitch/twitch.dart';
 import 'package:area/screens/pages/youtube/youtube.dart';
 import 'package:area/screens/pages/mail/mail.dart';
@@ -44,11 +46,11 @@ class NavBar extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.blue,
               image: DecorationImage(
-                  fit: BoxFit.fill,
-                  image: user.banner.contains('https://')
-                  ? NetworkImage(user.banner) as ImageProvider
-                  : FileImage(File(user.banner)) as ImageProvider,
-                  ),
+                fit: BoxFit.fill,
+                image: user.banner.contains('https://')
+                    ? NetworkImage(user.banner) as ImageProvider
+                    : FileImage(File(user.banner)) as ImageProvider,
+              ),
             ),
           ),
           ListTile(
@@ -80,20 +82,22 @@ class NavBar extends StatelessWidget {
               );
             },
             trailing: ClipOval(
-              child: Container(
-                color: Colors.red,
-                width: 20,
-                height: 20,
-                child: const Center(
-                  child: Text(
-                    '8',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 12,
+              child: settings.titles.length == 0
+                  ? null
+                  : Container(
+                      color: Colors.red,
+                      width: 20,
+                      height: 20,
+                      child: Center(
+                        child: Text(
+                          settings.titles.length.toString(),
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              ),
             ),
           ),
           const Divider(),
@@ -155,13 +159,13 @@ class NavBar extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.facebook),
-            title: const Text('Instagram'),
+            title: const Text('Facebook'),
             onTap: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return InstagramState();
+                    return ExampleApp();
                   },
                 ),
               );

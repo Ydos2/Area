@@ -34,10 +34,12 @@ class Joke {
 class Spotify {
   final String music;
   final String artist;
+  final String preview;
 
   const Spotify({
     required this.music,
     required this.artist,
+    required this.preview,
   });
 }
 
@@ -70,7 +72,6 @@ class ActionsFetch {
     } else {
       print("Not good login");
       return 1;
-      //throw Exception('Failed to load album');
     }
   }
 
@@ -113,17 +114,20 @@ class ActionsFetch {
         'https://areachad.herokuapp.com/data/spotify/listening?mail=' +
             settings.mail_actu));
 
+    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     if (response.statusCode == 200) {
       final spotifyBody = jsonDecode(response.body);
       print(spotifyBody['item']['name'].toString());
       print(spotifyBody['item']['artists'][0]['name'].toString());
+      print(spotifyBody['item']['preview_url'].toString());
       var spotify = Spotify(
           music: spotifyBody['item']['name'].toString(),
-          artist: spotifyBody['item']['artists'][0]['name'].toString());
+          artist: spotifyBody['item']['artists'][0]['name'].toString(),
+          preview: spotifyBody['item']['preview_url'].toString());
 
       return spotify;
     } else {
-      const spotify = Spotify(music: "", artist: "");
+      const spotify = Spotify(music: "", artist: "", preview: "");
 
       return spotify;
     }
@@ -196,8 +200,8 @@ class ActionsFetch {
 
   Future<void> fetchDiscord(String message, String time) async {
     final response = await http.get(Uri.parse(
-        'https://areachad.herokuapp.com/area/time/discord?userID=' +
-            discordID +
+        'https://areachad.herokuapp.com/area/time/discord?mail=' +
+            settings.mail_actu +
             '&message=' +
             message +
             '&time=' +

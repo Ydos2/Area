@@ -25,7 +25,14 @@ class StatefulYoutube extends State<YoutubeState> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Youtube'),
+        title: const Text(
+          'Youtube',
+          style: TextStyle(
+            fontFamily: "Raleway",
+            fontSize: 20,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
         backgroundColor: settings.dark_mode ? pf2 : pc3,
       ),
       drawer: NavBar(),
