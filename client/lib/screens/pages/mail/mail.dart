@@ -184,7 +184,11 @@ class StatefulMail extends State<MailState> {
                 ),
                 onPressed: () {
                   sendEmail();
-                  setNewNotification("Email", "Email send !");
+
+                  Future.delayed(const Duration(seconds: 30), () {
+                    setNewNotification("Email", "Email send !");
+                    setState(() {});
+                  });
                   showInSnackBar("Email send !");
                 },
                 child: const Text('Send Email'),

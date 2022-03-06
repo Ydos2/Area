@@ -149,9 +149,11 @@ class StatefulDiscord extends State<DiscordState> {
                 ),
                 onPressed: () {
                   sendDiscord();
-                  //showInSnackBar("Message send !");
-                  print("???????????????");
-                  setNewNotification("Discord", "Message send !");
+
+                  Future.delayed(const Duration(seconds: 30), () {
+                    setNewNotification("Discord", "Message send !");
+                    setState(() {});
+                  });
                 },
                 child: const Text('Send message'),
               ),
