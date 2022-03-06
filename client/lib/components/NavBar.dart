@@ -3,18 +3,14 @@
 import 'dart:io';
 
 import 'package:area/components/user.dart';
-import 'package:area/components/Oauth2.dart';
 import 'package:area/screens/home/home_screen.dart';
-import 'package:area/screens/pages/reddit/reddit.dart';
 import 'package:area/settings.dart';
 import 'package:flutter/material.dart';
 
 import 'package:area/screens/settings/settings_screen.dart';
 import 'package:area/screens/pages/discord/discord.dart';
 import 'package:area/screens/pages/spotify/spotify.dart';
-import 'package:area/screens/pages/spotify/tests.dart';
 import 'package:area/screens/pages/linkedIn/linkedIn.dart';
-import 'package:area/screens/pages/facebook/facebook.dart';
 import 'package:area/screens/pages/reddit/reddit.dart';
 import 'package:area/screens/pages/youtube/youtube.dart';
 import 'package:area/screens/pages/mail/mail.dart';
@@ -153,20 +149,6 @@ class NavBar extends StatelessWidget {
                 MaterialPageRoute(
                   builder: (context) {
                     return SpotifyState();
-                  },
-                ),
-              );
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.facebook),
-            title: const Text('Facebook'),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return ExampleApp();
                   },
                 ),
               );

@@ -11,7 +11,7 @@ services:
     ports:
       - 3000:3000
     command: >
-            sh -c "flutter pub get && flutter run -d web-server --web-port 3000 --web-hostname 0.0.0.0"
+            sh -c "flutter pub get && flutter run -d web-server --web-renderer html --web-port 3000 --web-hostname 0.0.0.0"
   server:
     container_name: server
     build: 

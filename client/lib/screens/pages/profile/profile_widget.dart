@@ -32,11 +32,11 @@ class ProfileWidget extends StatelessWidget {
           Positioned(
             top: 160,
             right: MediaQuery.of(context).size.width / 3,
-            child: buildEditIcon(color, useless.type),
+            child: buildEditIcon(color, "Image"),
           ),
           Positioned(
             right: 0,
-            child: buildEditIcon(color, useless.type),
+            child: buildEditIcon(color, "Banner"),
           ),
         ],
       ),
