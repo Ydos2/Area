@@ -4,7 +4,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'dart:io';
-//import 'dart:js' as js;
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:area/settings.dart';
