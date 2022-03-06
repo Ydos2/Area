@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:area/screens/settings/settings_screen.dart';
 import 'package:area/screens/pages/discord/discord.dart';
 import 'package:area/screens/pages/spotify/spotify.dart';
-import 'package:area/screens/pages/spotify/tests.dart';
+// import 'package:area/screens/pages/spotify/tests.dart';
 import 'package:area/screens/pages/github/github.dart';
 import 'package:area/screens/pages/facebook/facebook.dart';
 import 'package:area/screens/pages/twitch/twitch.dart';
@@ -161,14 +161,14 @@ class NavBar extends StatelessWidget {
             leading: const Icon(Icons.facebook),
             title: const Text('Facebook'),
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return ExampleApp();
-                  },
-                ),
-              );
+              // Navigator.push(
+                // context,
+                // MaterialPageRoute(
+                  // builder: (context) {
+                    // return ExampleApp();
+                  // },
+                // ),
+              // );
             },
           ),
           ListTile(
