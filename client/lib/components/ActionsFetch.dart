@@ -41,6 +41,28 @@ class Zelda {
   });
 }
 
+class Crypto {
+  final String title;
+  final String url;
+  final String source;
+
+  const Crypto({
+    required this.title,
+    required this.url,
+    required this.source,
+  });
+}
+
+class News {
+  final String name;
+  final String description;
+
+  const News({
+    required this.name,
+    required this.description,
+  });
+}
+
 class Spotify {
   final String music;
   final String artist;
@@ -201,10 +223,59 @@ class ActionsFetch {
 
       return zelda;
     } else {
-      const zelda = Zelda(
-          name: "", description: "");
+      const zelda = Zelda(name: "", description: "");
 
       return zelda;
+    }
+  }
+
+  Future<News> fetchNews() async {
+    final response = await http
+        .get(Uri.parse('https://areachad.herokuapp.com/data/crypto/trending'));
+
+    if (response.statusCode == 200) {
+      print(response.body);
+
+      final data = jsonDecode(response.body);
+      final news = News(
+          name: data['name'].toString(),
+          description: data['description'].toString());
+
+      return news;
+    } else {
+      const news = News(name: "", description: "");
+
+      return news;
+    }
+  }
+
+  Future<List<Crypto>> fetchCrypto() async {
+    final response = await http
+        .get(Uri.parse('https://areachad.herokuapp.com/data/crypto/news'));
+
+    if (response.statusCode == 200) {
+      print(response.body);
+
+      final data = jsonDecode(response.body);
+      List<Crypto> cryptoList = [];
+      for (int i = 0; i <= 10; i++) {
+        final crypto = Crypto(
+            title: data[i]['title'].toString(),
+            url: data[i]['url'].toString(),
+            source: data[i]['source'].toString());
+        cryptoList.add(crypto);
+
+        print("!! " + data[i]['title'].toString());
+        print("!! " + data[i]['url'].toString());
+        print("!! " + data[i]['source'].toString());
+      }
+
+      return cryptoList;
+    } else {
+      List<Crypto> crypto = [];
+      //const crypto = Crypto(title: "", url: "", source: "");
+
+      return crypto;
     }
   }
 
@@ -229,8 +300,7 @@ class ActionsFetch {
     }
   }
 
-  Future<void> fetchNewsReddit(
-      String mail, bool state) async {
+  Future<void> fetchNewsReddit(String mail, bool state) async {
     final response = await http.get(Uri.parse(
         'https://areachad.herokuapp.com/area/reddit/pingnewpost?mail=' +
             mail +
@@ -254,6 +324,20 @@ class ActionsFetch {
             message +
             '&time=' +
             time));
+
+    // in progress
+    if (response.statusCode == 200) {
+      print(response.body);
+      return;
+    } else {
+      return;
+    }
+  }
+
+  Future<void> fetchDiscordBot() async {
+    final response = await http.get(Uri.parse(
+        'https://areachad.herokuapp.com/tests/discord?mail=' +
+            settings.mail_actu));
 
     // in progress
     if (response.statusCode == 200) {

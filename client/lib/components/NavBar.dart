@@ -10,8 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:area/screens/settings/settings_screen.dart';
 import 'package:area/screens/pages/discord/discord.dart';
 import 'package:area/screens/pages/spotify/spotify.dart';
-import 'package:area/screens/pages/linkedIn/linkedIn.dart';
-import 'package:area/screens/pages/reddit/reddit.dart';
+import 'package:area/screens/pages/crypto/crypto.dart';
+import 'package:area/screens/pages/news/news.dart';
 import 'package:area/screens/pages/mail/mail.dart';
 import 'package:area/screens/notifications/notifications.dart';
 import 'package:area/screens/Login/home_view.dart';
@@ -141,27 +141,27 @@ class NavBar extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.link_rounded),
-            title: const Text('LinkedIn'),
+            title: const Text('Crypto'),
             onTap: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return LinkedInState();
+                    return CryptoState();
                   },
                 ),
               );
             },
           ),
           ListTile(
-            leading: const Icon(Icons.reddit),
-            title: const Text('Reddit'),
+            leading: const Icon(Icons.newspaper),
+            title: const Text('News'),
             onTap: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return RedditState();
+                    return NewsState();
                   },
                 ),
               );
