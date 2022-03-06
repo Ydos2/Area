@@ -12,7 +12,6 @@ import 'package:area/screens/pages/discord/discord.dart';
 import 'package:area/screens/pages/spotify/spotify.dart';
 import 'package:area/screens/pages/linkedIn/linkedIn.dart';
 import 'package:area/screens/pages/reddit/reddit.dart';
-import 'package:area/screens/pages/youtube/youtube.dart';
 import 'package:area/screens/pages/mail/mail.dart';
 import 'package:area/screens/notifications/notifications.dart';
 import 'package:area/screens/Login/home_view.dart';
@@ -107,20 +106,6 @@ class NavBar extends StatelessWidget {
                 MaterialPageRoute(
                   builder: (context) {
                     return MailState();
-                  },
-                ),
-              );
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.person),
-            title: const Text('Youtube'),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return YoutubeState();
                   },
                 ),
               );

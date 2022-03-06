@@ -141,9 +141,20 @@ class StatefulDiscord extends State<DiscordState> {
                 onPressed: () {
                   _selectTime(context);
                 },
-                child: const Text("Choose Time"),
+                child: const Text("Choose Time",
+                  style: TextStyle(
+                    fontFamily: "Raleway",
+                    fontSize: 18,
+                    fontWeight: FontWeight.w800,
+                  ),),
               ),
-              Text("${selectedTime.hour}:${selectedTime.minute}"),
+              Text("${selectedTime.hour}:${selectedTime.minute}",
+                  style: TextStyle(
+                    fontFamily: "Raleway",
+                    fontSize: 18,
+                    color: settings.dark_mode ? pc3 : pf2,
+                    fontWeight: FontWeight.w800,
+                  ),),
               TextButton(
                 style: TextButton.styleFrom(
                   textStyle: const TextStyle(fontSize: 20),
@@ -156,7 +167,12 @@ class StatefulDiscord extends State<DiscordState> {
                     setState(() {});
                   });
                 },
-                child: const Text('Send message'),
+                child: const Text('Send message',
+                  style: TextStyle(
+                    fontFamily: "Raleway",
+                    fontSize: 20,
+                    fontWeight: FontWeight.w800,
+                  ),),
               ),
               ScreenTypeLayout(
                   mobile: TextButton(
@@ -169,7 +185,12 @@ class StatefulDiscord extends State<DiscordState> {
                               settings.mail_actu);
                       showInSnackBar("Discord is connected !");
                     },
-                    child: const Text('Connect to discord'),
+                    child: const Text('Connect to discord',
+                  style: TextStyle(
+                    fontFamily: "Raleway",
+                    fontSize: 20,
+                    fontWeight: FontWeight.w800,
+                  ),),
                   ),
                   desktop: TextButton(
                     style: TextButton.styleFrom(
