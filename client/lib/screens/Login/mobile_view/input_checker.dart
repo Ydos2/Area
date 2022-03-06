@@ -15,7 +15,7 @@ class input_checker {
     if (regEx.hasMatch(password) == false) {
       return "Password must contain at least one upper and one lower character";
     }
-    if (identical(secondPassword, password)) {
+    if (identical(secondPassword, password) == false) {
       return "The two passwords must be the same";
     }
     if (!EmailValidator.validate(email)) {

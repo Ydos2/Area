@@ -47,4 +47,5 @@ class User {
         banner: banner ?? this.banner,
         hasLoggedInBefore: hasLoggedInBefore ?? this.hasLoggedInBefore,
       );
+
 }

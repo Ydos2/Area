@@ -36,9 +36,12 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int navIndex = 0;
   String nameCity = "Paris";
+  String nameItem = "Master Sword";
   late Future<Joke> joke;
+  late Future<Zelda> zelda = ActionsFetch().fetchZelda(nameItem);
 
   TextEditingController cityController = TextEditingController();
+  TextEditingController zeldaController = TextEditingController();
 
   Future<int> i = ActionsFetch().fetchTime();
   late Future<Weather> paris;
@@ -48,6 +51,7 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     paris = ActionsFetch().fetchWeather(nameCity);
+    zelda = ActionsFetch().fetchZelda(nameItem);
     joke = ActionsFetch().fetchJoke();
   }
 
@@ -56,6 +60,14 @@ class _HomeState extends State<Home> {
     setState(() {
       paris = ActionsFetch().fetchWeather(cityController.text);
       nameCity = cityController.text;
+    });
+  }
+
+  void refreshZelda() {
+    // reload
+    setState(() {
+      zelda = ActionsFetch().fetchZelda(zeldaController.text);
+      nameItem = zeldaController.text;
     });
   }
 
@@ -70,7 +82,14 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Home'),
+          title: const Text(
+            'Home',
+            style: TextStyle(
+              fontFamily: "Raleway",
+              fontSize: 20,
+              fontWeight: FontWeight.w800,
+            ),
+          ),
           backgroundColor: settings.dark_mode ? pf2 : pc3,
         ),
         backgroundColor: settings.dark_mode ? pf1 : pc1,
@@ -154,6 +173,53 @@ class _HomeState extends State<Home> {
                             refreshJoke();
                           },
                           child: const Text('Refresh'),
+                        ),
+                      ],
+                    ),
+                  );
+                }
+
+                return const CircularProgressIndicator();
+              }),
+          FutureBuilder<Zelda>(
+              future: zelda,
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                } else if (snapshot.hasData) {
+                  return Card(
+                    color: settings.dark_mode ? pf2 : pc2,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        ListTile(
+                          leading: const Image(
+                              image:
+                                  NetworkImage("https://www.pngkey.com/png/full/178-1784046_zelda-icons-google-search-master-sword-and-hylian.png")),
+                          title: Text(snapshot.data!.name),
+                          subtitle: Text(
+                                  "" +
+                                  snapshot.data!.description,
+                              style: Theme.of(context).textTheme.bodyMedium),
+                          textColor: settings.dark_mode ? pc1 : pc1,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 0),
+                          child: TextField(
+                              decoration: const InputDecoration(
+                                  border: UnderlineInputBorder(),
+                                  labelText: "Enter an item"),
+                              controller: zeldaController),
+                        ),
+                        TextButton(
+                          style: TextButton.styleFrom(
+                            textStyle: const TextStyle(fontSize: 20),
+                          ),
+                          onPressed: () {
+                            refreshZelda();
+                          },
+                          child: const Text('Apply'),
                         ),
                       ],
                     ),
