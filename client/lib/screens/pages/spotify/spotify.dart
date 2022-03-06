@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'dart:io';
 
 import 'package:area/settings.dart';
@@ -30,7 +31,7 @@ class StatefulSpotify extends State<SpotifyState> {
     super.initState();
     _dark = settings.dark_mode;
     spotify = ActionsFetch().fetchSpotify();
-    if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
+    //if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
   }
 
   void refreshSpotify() {
@@ -112,16 +113,9 @@ class StatefulSpotify extends State<SpotifyState> {
                   textStyle: const TextStyle(fontSize: 20),
                 ),
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => WebView(
-                              initialUrl:
-                                  "https://areachad.herokuapp.com/spotify/login?mail=" +
-                                      settings.mail_actu,
-                              javascriptMode: JavascriptMode.unrestricted,
-                            )),
-                  );
+                  _launchInBrowser(
+                      "https://areachad.herokuapp.com/spotify/login?mail=" +
+                          settings.mail_actu);
                   showInSnackBar("Spotify is connected !");
                 },
                 child: const Text('Connect to spotify'),
@@ -131,6 +125,17 @@ class StatefulSpotify extends State<SpotifyState> {
         ),
       ),
     );
+  }
+
+  Future<void> _launchInBrowser(String url) async {
+    if (!await launch(
+      url,
+      forceSafariVC: false,
+      forceWebView: false,
+      headers: <String, String>{'my_header_key': 'my_header_value'},
+    )) {
+      throw 'Could not launch $url';
+    }
   }
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
